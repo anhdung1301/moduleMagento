@@ -20,7 +20,7 @@ define([
 
     return Component.extend({
         defaults: {
-            template: 'Ecentura_ShippingDropdown/shipping-address/address-renderer/default'
+            template: 'Ecentura_ShippingDropdown/shipping-address/address-renderer/mydefault'
         },
 
         /** @inheritdoc */
@@ -29,11 +29,6 @@ define([
             this.isSelected = ko.computed(function () {
                 var isSelected = false,
                     shippingAddress = quote.shippingAddress();
-
-                if (shippingAddress) {
-                    // isSelected = shippingAddress.getKey() == this.address().getKey(); //eslint-disable-line eqeqeq
-                }
-
                 return isSelected;
             }, this);
 
@@ -50,17 +45,8 @@ define([
         addressOptionsText: function (address) {
             if(address.customerAddressId){
                 return address.getAddressInline();
-            } else {
-                //var newAddressInline =  address.firstname +' ' + address.lastname +', '+ address.street[0]+', ' + address.city+', ' + address.region
-                //return '[ '+ $t('New Address')+']' + newAddressInline ;
-                return $t('New Address');
             }
-
         },
-        /*selectedAddress: function(param){
-            console.log("address param");
-              console.log(param);
-        },*/
         /** Set selected customer shipping address  */
         onAddressChange: function (address) {
             selectShippingAddressAction(this.allAddress());

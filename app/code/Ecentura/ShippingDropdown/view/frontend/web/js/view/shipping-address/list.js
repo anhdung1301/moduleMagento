@@ -4,82 +4,150 @@
  */
 
 define([
-    'jquery',
+    'underscore',
     'ko',
+    'mageUtils',
     'uiComponent',
+    'uiLayout',
+    'Magento_Customer/js/model/address-list',
     'Magento_Checkout/js/action/select-shipping-address',
-    'Magento_Checkout/js/model/quote',
-    'Magento_Checkout/js/model/shipping-address/form-popup-state',
     'Magento_Checkout/js/checkout-data',
-    'Magento_Customer/js/customer-data',
+    'mage/url',
+    'Magento_Ui/js/modal/confirm',
     'mage/translate'
-], function ($, ko, Component, selectShippingAddressAction, quote, formPopUpState, checkoutData, customerData, $t) {
+], function (_, ko, utils, Component, layout, addressList,  selectShippingAddressAction, checkoutData, url, confirmation, $t) {
     'use strict';
 
-    var countryData = customerData.get('directory-data');
+    var defaultRendererTemplate = {
+        parent: '${ $.$data.parentName }',
+        name: '${ $.$data.name }',
+        component: 'Magento_Checkout/js/view/shipping-address/address-renderer/default'
+    };
+
+    /* custom RendererTemplate  for Dropdown*/
+    var mydefaultRendererTemplate = {
+        parent: '${ $.$data.parentName }',
+        name: '${ $.$data.name }',
+        component: 'Ecentura_ShippingDropdown/js/view/shipping-address/address-renderer/mydefault'
+    };
 
     return Component.extend({
         defaults: {
-            template: 'Ecentura_ShippingDropdown/shipping-address/address-renderer/mydefault'
+            template: 'Ecentura_ShippingDropdown/shipping-address/list',
+            visible: addressList().length > 0,
+            rendererTemplates: [],
+            myAddressList: [],
+            myComponentRendererIndex:50
         },
 
         /** @inheritdoc */
-        initObservable: function () {
-            this._super();
-            this.isSelected = ko.computed(function () {
-                var isSelected = false,
-                    shippingAddress = quote.shippingAddress();
+        initialize: function () {
+            this._super()
+                .initChildren();
 
-                if (shippingAddress) {
-                    // isSelected = shippingAddress.getKey() == this.address().getKey(); //eslint-disable-line eqeqeq
-                }
+            addressList.subscribe(function (changes) {
+                    var self = this;
 
-                return isSelected;
-            }, this);
+                    changes.forEach(function (change) {
+                        if (change.status === 'added') {
+                            //self.createNewRendererComponent(change.value, change.index);
+                            self.createNewRendererComponent(change.value, 0);
+                            self.createRendererMyNewComponent(change.value, change.index);
+                        }
+                    });
+                },
+                this,
+                'arrayChange'
+            );
 
             return this;
         },
 
-        /**
-         * @param {String} countryId
-         * @return {String}
-         */
-        getCountryName: function (countryId) {
-            return countryData()[countryId] != undefined ? countryData()[countryId].name : ''; //eslint-disable-line
+        /** @inheritdoc */
+        initConfig: function () {
+            this._super();
+            // the list of child components that are responsible for address rendering
+            this.rendererComponents = [];
+
+            return this;
         },
-        addressOptionsText: function (address) {
-            if(address.customerAddressId){
-                return address.getAddressInline();
+
+        /** @inheritdoc */
+        initChildren: function () {
+            _.each(addressList(), this.createAddressListData, this);
+            this.createRendererMyComponent();
+
+            return this;
+        },
+        /**
+         * Create arreess List Array
+         *
+         * @param {Object} address
+         * @param {*} index
+         */
+        createAddressListData: function(address, index){
+            this.myAddressList.push( address );
+        },
+        /**
+         * Push new shipping address
+         */
+        createRendererMyNewComponent: function(address, index) {
+            if (index in this.myAddressList) {
+                //this.rendererComponents[50].allAddress[index] = address;
             } else {
-                //var newAddressInline =  address.firstname +' ' + address.lastname +', '+ address.street[0]+', ' + address.city+', ' + address.region
-                //return '[ '+ $t('New Address')+']' + newAddressInline ;
-                return $t('New Address');
+                this.rendererComponents[this.myComponentRendererIndex].allAddress.push(address);
             }
 
         },
-        /*selectedAddress: function(param){
-            console.log("address param");
-              console.log(param);
-        },*/
-        /** Set selected customer shipping address  */
-        onAddressChange: function (address) {
-            selectShippingAddressAction(this.allAddress());
-            checkoutData.setSelectedShippingAddress(this.allAddress().getKey());
+        /**
+         * Render My Custom Component
+         */
+        createRendererMyComponent: function() {
+            var rendererTemplate, templateData, rendererComponent;
+
+            rendererTemplate = utils.extend({}, mydefaultRendererTemplate);
+
+            templateData = {
+                parentName: this.name,
+                name: 'shipping-addressall-dropdown'
+            };
+
+            rendererComponent = utils.template(rendererTemplate, templateData);
+            this.selectedItem = ko.observable();
+
+            this.selectedItem.subscribe(function(latest){
+                selectShippingAddressAction(latest);
+                checkoutData.setSelectedShippingAddress(latest,latest.getKey());
+                this.createNewRendererComponent(latest,0);
+            },this);
+
+            utils.extend(rendererComponent, {
+                allAddress: ko.observableArray( this.myAddressList),
+                selectedItem: this.selectedItem,
+            });
+            layout([rendererComponent]);
+            this.rendererComponents[this.myComponentRendererIndex] = rendererComponent;
+        },
+        createNewRendererComponent: function (address, index) {
+            var rendererTemplate, templateData, rendererComponent;
+            if (index in this.rendererComponents) {
+                this.rendererComponents[index].address(address);
+            } else {
+                rendererTemplate = address.getType() != undefined && this.rendererTemplates[address.getType()] != undefined ? //eslint-disable-line
+                    utils.extend({}, defaultRendererTemplate, this.rendererTemplates[address.getType()]) :
+                    defaultRendererTemplate;
+                templateData = {
+                    parentName: this.name,
+                    name: index
+                };
+                rendererComponent = utils.template(rendererTemplate, templateData);
+                utils.extend(rendererComponent, {
+                    address: ko.observable(address)
+                });
+                layout([rendererComponent]);
+                this.rendererComponents[index] = rendererComponent;
+            }
         },
 
-        /**
-         * Edit address.
-         */
-        editAddress: function () {
-            formPopUpState.isVisible(true);
-            this.showPopup();
-
-        },
-        /**
-         * Show popup.
-         */
-        showPopup: function () {
-            $('[data-open-modal="opc-new-shipping-address"]').trigger('click');
-        }
     });
 });
