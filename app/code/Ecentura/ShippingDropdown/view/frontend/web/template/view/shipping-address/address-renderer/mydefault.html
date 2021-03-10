@@ -1,0 +1,11 @@
+
+<div class="field addresses">
+    <div class="control">
+        <div data-bind="text: ko.computed(function() { debugger; })"></div>
+        <select  class="select" name="shipping_address_id" data-bind="
+        options: allAddress,
+        optionsText: addressOptionsText,
+        value: selectedItem">
+        </select>
+    </div>
+</div>
