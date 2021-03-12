@@ -2,36 +2,37 @@
 
 namespace Ecentura\LandingPage\Observer;
 
+use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
+use Magento\Framework\Registry;
+use Magento\Store\Model\StoreManagerInterface;
 
 class LoadlandingPage implements ObserverInterface
 {
     /**
-     * @var \Magento\Framework\Registry
+     * @var Registry
      */
     protected $_registry;
     /**
-     * @var \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory
+     * @var CollectionFactory
      */
     protected $_categoryCollection;
     /**
-     * @var \Magento\Store\Model\StoreManagerInterface
+     * @var StoreManagerInterface
      */
     protected $_storeManager;
-
     public function __construct(
-        \Magento\Framework\Registry $registry,
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollection
-    )
-    {
+        Registry $registry,
+        StoreManagerInterface $storeManager,
+        CollectionFactory $categoryCollection
+    ) {
         $this->_registry = $registry;
         $this->_categoryCollection = $categoryCollection;
         $this->_storeManager = $storeManager;
     }
 
-    public function execute(\Magento\Framework\Event\Observer $observer)
+    public function execute(Observer $observer)
     {
         $categoryIdCurrent = $this->_registry->registry('current_category') ? $this->_registry->registry('current_category')->getId() : null;
         $categories = $this->_categoryCollection->create()
