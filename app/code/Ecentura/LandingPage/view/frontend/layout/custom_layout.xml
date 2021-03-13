@@ -6,13 +6,20 @@
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Ecentura_LandingPage::css/owl.carousel.css"/>
+        <css src="Ecentura_LandingPage::css/owl.theme.css"/>
+        <css src="Ecentura_LandingPage::css/owl.transitions.css"/>
+        <css src="Ecentura_LandingPage::css/fancybox/jquery.fancybox.css"/>
+        <css src="Ecentura_LandingPage::css/font-awesome.min.css"/>
+    </head>
     <body>
 <!--        <referenceContainer name="columns.top" remove="true"/>-->
         <!--        <referenceBlock name="catalog.compare.sidebar" remove="true"/>-->
         <!--        <referenceContainer name="sidebar.additional" remove="true" />-->
         <referenceContainer name="content">
             <referenceBlock name="category.products" remove = "true"/>
-            <block class="Ecentura\LandingPage\Block\Landing\Product" name="show_products" template="Ecentura_LandingPage::custom.phtml" />
+            <block class="Ecentura\LandingPage\Block\Landing\Custom" name="show_products" template="Ecentura_LandingPage::custom.phtml" />
         </referenceContainer>
         <referenceBlock name="page.main.title" remove = "true"/>
 
