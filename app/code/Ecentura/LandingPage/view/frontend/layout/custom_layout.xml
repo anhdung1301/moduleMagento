@@ -5,13 +5,15 @@
  * See COPYING.txt for license details.
  */
 -->
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
         <css src="Ecentura_LandingPage::css/owl.carousel.css"/>
         <css src="Ecentura_LandingPage::css/owl.theme.css"/>
         <css src="Ecentura_LandingPage::css/owl.transitions.css"/>
         <css src="Ecentura_LandingPage::css/fancybox/jquery.fancybox.css"/>
         <css src="Ecentura_LandingPage::css/font-awesome.min.css"/>
+        <css src="Ecentura_LandingPage::css/landing.css"/>
+        <css src="https://use.fontawesome.com/releases/v5.7.1/css/all.css" src_type="url"/>
     </head>
     <body>
 <!--        <referenceContainer name="columns.top" remove="true"/>-->
