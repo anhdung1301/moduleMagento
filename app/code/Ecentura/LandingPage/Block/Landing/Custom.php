@@ -18,6 +18,8 @@ use Magento\Framework\Url\Helper\Data;
  */
 class Custom extends ListProduct
 {
+    protected $_categoryFactory;
+
     /**
      * @var Registry
      */
@@ -59,18 +61,18 @@ class Custom extends ListProduct
         Registry $registry,
         PostHelper $postDataHelper,
         Resolver $layerResolver,
+        \Magento\Catalog\Model\CategoryFactory $categoryFactory,
         CategoryRepositoryInterface $categoryRepository,
         CollectionFactory $productCollectionFactory,
         \Magento\Sales\Model\ResourceModel\Report\Bestsellers\CollectionFactory $collectionFactory,
-
         Output $output,
         Data $urlHelper,
         array $data = []
     ) {
         $this->_registry = $registry;
-
         $this->_productCollectionFactory = $productCollectionFactory;
         $this->outputHelper = $output;
+        $this->_categoryFactory = $categoryFactory;
         $this->_collectionFactory = $collectionFactory;
         parent::__construct($context, $postDataHelper, $layerResolver, $categoryRepository, $urlHelper, $data);
     }
@@ -82,56 +84,23 @@ class Custom extends ListProduct
     {
         return $this->outputHelper;
     }
-
-    /**
-     * @return mixed
-     */
-    public function hasProduct()
-    {
-        $collection = $this->_getProductCollection();
-
-        return $collection->getSize();
-    }
-
     /**
      * @return mixed
      * get ProductCollection in same brand ( filter by Atrribute Option_Id )
      */
-    public function _getProductCollection()
+    public function getProductCollection($categoryId)
     {
-        if ($this->_productCollection === null) {
-            $postId = $this->getRequest()->getParam('id');
-            $collection = $this->_productCollectionFactory->create()
-                ->addAttributeToSelect('*')
-                ->addStoreFilter();
-            $collection->getSelect()
-//                ->join(
-//                    ['product_post' => $collection->getTable('sm_blog_post_product')],
-//                    'e.entity_id = product_post.entity_id'
-//                )
-//                ->where('product_post.post_id = ' . $postId)
-//                ->order('product_post.position ASC')
-                ->limit((int)self::LIMIT);
-
-            $this->_productCollection = $collection;
-        }
-        return $this->_productCollection;
+        $category = $this->_categoryFactory->create()->load($categoryId);
+        $collection = $this->_productCollectionFactory->create();
+        $collection->addAttributeToSelect('*');
+        $collection->addCategoryFilter($category);
+        $collection->addAttributeToFilter('visibility', \Magento\Catalog\Model\Product\Visibility::VISIBILITY_BOTH);
+        $collection->addAttributeToFilter('status',\Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
+        $collection->getSelect()->limit(Custom::LIMIT);
+        return $collection;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getBestSellerData()
-    {
-        $category_ids = $this->_registry->registry('current_category') ? $this->_registry->registry('current_category')->getId() : null;
-        $bestSellerProdcutCollection = $this->_collectionFactory->create()
-            ->setModel('Magento\Catalog\Model\Product')
-            ->setPeriod('month')
-            ->join(['secondTable' => 'catalog_category_product'], 'sales_bestsellers_aggregated_monthly.product_id = secondTable.product_id', ['category_id' => 'secondTable.category_id'])
-            ->addFieldToFilter('category_id', $category_ids);
 
-        return $bestSellerProdcutCollection;
-    }
     /**
      * @inheritdoc
      */
@@ -163,5 +132,27 @@ class Custom extends ListProduct
     {
         return $this;
     }
+    public function getCategory($categoryId)
+    {
+        $category = $this->_categoryFactory->create()->load($categoryId);
+        return $category;
+    }
+    public function getChildren($categoryId)
+    {
+        $categories = $this->_categoryFactory->create()->load($categoryId)->getChildren();
+        if ($categories) {
+            $dataChils = array();
+            $subcategories = explode(',', $categories);
+            foreach ($subcategories as $key => $value) {
+                $dataChil[$value] = [
+                    'name' => $this->getCategory($value)->getName(),
+                    'url' => $this->getCategory($value)->getUrl(),
+                    'image'=> $this->getCategory($value)->getImage(),
+                ];
+            }
+            array_push($dataChils,$dataChil);
+            return $dataChils;
+        }
 
+    }
 }

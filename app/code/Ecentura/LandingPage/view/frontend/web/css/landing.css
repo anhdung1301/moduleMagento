@@ -15,6 +15,7 @@
     position: relative;
 }
 
+
 .main-category {
     width: 50%;
     float: left;
@@ -75,18 +76,30 @@ a.btn {
     margin: 106px 0px 0px 387px;
     height: 100%;
 }
+
 .mhmr .head a {
     color: #fff;
     font-size: 22px;
     text-decoration: none;
 }
+
 .mhmr .head a:hover {
     text-decoration: underline;
 
 }
-.mhmr .usp:before {
+
+.usp .fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.fa-check:before {
     content: "\f00c";
-    font-family: Font Awesome\ 5 Pro;
     font-size: 20px;
     color: #fff;
     float: left;
@@ -94,31 +107,49 @@ a.btn {
     margin-right: 11px;
     display: table;
 }
+
+.fa-angle-rights:before {
+    content: "\f105";
+    color: #0a0a0a;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    margin-top: -10px;
+    right: 15px;
+    font-size: 20px;
+}
+
 .row:before {
     display: table;
 }
-.row:after{
+
+.row:after {
     clear: both;
 }
+
 .mhmr .row.usp {
     margin: 0 0 17px 0;
 }
+
 .mhmr .usp-head {
     color: #fff;
     font-size: 18px;
     line-height: 24px;
 }
-.ad_related_pro{
+
+.ad_related_pro {
     margin: 20px 0px 0px 0px;
     display: table;
     width: 100%;
 }
-.ad_related_pro_below{
+
+.ad_related_pro_below {
     margin: 20px 0px 0px 0px;
     display: table;
     width: 100%;
 }
-.ad_related_pro .raleted_pro_general .raleted_pro_detailds{
+
+.ad_related_pro .raleted_pro_general .raleted_pro_detailds {
     float: left;
     width: 29%;
     border: 1px solid #eaeaea;
@@ -127,8 +158,10 @@ a.btn {
     -webkit-box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
     box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
     padding: 15px;
+    min-height: 111px;
 }
-.ad_related_pro_below .raleted_pro_general_below .raleted_pro_detailds{
+
+.ad_related_pro_below .raleted_pro_general_below .raleted_pro_detailds {
     float: left;
     width: 22%;
     border: 1px solid #eaeaea;
@@ -138,102 +171,121 @@ a.btn {
     box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
     padding: 15px;
     margin: 10px 13px 10px 0px;
+    position: relative;
 }
-.ad_related_pro_below .raleted_pro_general_below .theme-cat-group>:nth-child(4n+1){
+
+.ad_related_pro_below .raleted_pro_general_below .theme-cat-group > :nth-child(4n+1) {
     clear: both;
-    margin-right:-20px ;
 }
 
-/*.ad_related_pro_below .raleted_pro_general_below .theme-cat-group>:nth-child(n){*/
-/*    clear: both;*/
-/*}*/
 
-
-.ad_related_pro .raleted_pro_general .raleted_pro_detailds:hover{
+.ad_related_pro .raleted_pro_general .raleted_pro_detailds:hover {
     border: 1px solid #ccc;
     box-shadow: 0 0 7px 0 rgb(0 0 0 / 10%);
 }
-.ad_related_pro_below .raleted_pro_general_below .raleted_pro_detailds:hover{
+
+.ad_related_pro_below .raleted_pro_general_below .raleted_pro_detailds:hover {
     border: 1px solid #ccc;
     box-shadow: 0 0 7px 0 rgb(0 0 0 / 10%);
 }
-.ad_related_pro .raleted_pro_general>.raleted_pro_detailds:nth-child(1){
+
+.ad_related_pro .raleted_pro_general > .raleted_pro_detailds:nth-child(1) {
     margin: 0px 15px 0px 0px;
+    position: relative;
 }
-.ad_related_pro .raleted_pro_general>.raleted_pro_detailds:nth-child(2){
+
+.ad_related_pro .raleted_pro_general > .raleted_pro_detailds:nth-child(2) {
     margin: 0px 15px 0px 15px;
+    position: relative;
 }
-.ad_related_pro .raleted_pro_general>.raleted_pro_detailds:nth-child(3){
+
+.ad_related_pro .raleted_pro_general > .raleted_pro_detailds:nth-child(3) {
     margin: 0px 0px 0px 19px;
+    position: relative;
 }
-.ad_related_pro .raleted_pro_general .raleted_pro_detailds .cat-img{
+
+.ad_related_pro .raleted_pro_general .raleted_pro_detailds .cat-img {
     float: left;
 }
-.ad_related_pro .raleted_pro_general .raleted_pro_detailds .cat-img img{
+
+.ad_related_pro .raleted_pro_general .raleted_pro_detailds .cat-img img {
     max-width: 90px;
     width: 100%;
     margin: 0px 30px 0px 0px;
 }
-.ad_related_pro .raleted_pro_general .raleted_pro_detailds .sub-info .name{
+
+.ad_related_pro .raleted_pro_general .raleted_pro_detailds .sub-info .name {
     font-size: 16px;
     color: #333;
     font-weight: 700;
 }
-.ad_related_pro .raleted_pro_general .raleted_pro_detailds .sub-info .sub-caption{
+
+.ad_related_pro .raleted_pro_general .raleted_pro_detailds .sub-info .sub-caption {
     color: #666;
     font-size: 16px;
 }
-.ad_related_pro .raleted_pro_general .raleted_pro_detailds .sub-info .sub-caption ul{
+
+.ad_related_pro .raleted_pro_general .raleted_pro_detailds .sub-info .sub-caption ul {
     list-style: none;
 }
 
-.ad_related_pro_below .raleted_pro_general_below .raleted_pro_detailds .cat-img{
+.ad_related_pro_below .raleted_pro_general_below .raleted_pro_detailds .cat-img {
     float: left;
 }
-.ad_related_pro_below .raleted_pro_general_below .raleted_pro_detailds .cat-img img{
+
+.ad_related_pro_below .raleted_pro_general_below .raleted_pro_detailds .cat-img img {
     max-width: 90px;
     width: 100%;
     margin: 0px 30px 0px 0px;
 }
-.ad_related_pro_below .raleted_pro_general_below .raleted_pro_detailds .sub-info .name{
+
+.ad_related_pro_below .raleted_pro_general_below .raleted_pro_detailds .sub-info .name {
     font-size: 16px;
     color: #333;
     font-weight: 700;
     display: block;
     min-height: 44px;
 }
-.ad_related_pro_below .raleted_pro_general_below .raleted_pro_detailds .sub-info .sub-caption{
+
+.ad_related_pro_below .raleted_pro_general_below .raleted_pro_detailds .sub-info .sub-caption {
     color: #666;
     font-size: 16px;
 }
-.ad_related_pro_below .raleted_pro_general_below .raleted_pro_detailds .sub-info .sub-caption ul{
+
+.ad_related_pro_below .raleted_pro_general_below .raleted_pro_detailds .sub-info .sub-caption ul {
     list-style: none;
 }
-.col-xs-12 .title{
+
+.col-xs-12 .title {
     text-align: center;
     color: #333;
     font-size: 20px;
     margin-bottom: 40px;
     font-weight: 700;
 }
+
 .hidden {
-    display: none!important;
+    display: none !important;
 }
-.container .items .heading-tabs .item.title{
+
+.container .items .heading-tabs .item.title {
     width: auto;
     height: 50px;
     border: 1px solid #eaeaea;
     float: left;
     margin: 20px 0px 20px 5px;
 }
-.heading-tabs a:hover{
+
+.heading-tabs a:hover {
     background: #f5f5f5;
 }
+
 .heading-tabs {
     display: table;
     margin: 0px auto;
 }
-.heading-tabs a{
+
+.heading-tabs a {
     display: inline-block;
     color: #333;
     padding: 10px 20px;
@@ -244,39 +296,75 @@ a.btn {
     font-size: 14px;
     font-weight: 400;
 }
-.heading-tabs a:hover{
+
+.heading-tabs a:hover {
     background: #f5f5f5;
 }
-.heading-tabs .item.active{
+
+.heading-tabs .item.active {
     color: #333;
     background-color: #d4d4d4;
     border-color: #8c8c8c;
 }
-.list-product{
+
+.list-product {
     clear: both;
 }
-.list-product .owl-item {
+
+.list-product product-item-info.owl-item {
     border: 1px solid #eaeaea;
 }
-.list-product .owl-item:hover{
-    border: 1px solid #ccc!important;
+
+.list-product .owl-item:hover {
+    border: 1px solid #ccc !important;
     box-shadow: 0 0 7px 0 rgb(0 0 0 / 10%);
     margin-bottom: -1px;
     z-index: 2;
 }
+
+.owl-item .hbr-inner .product-item-info .round-number {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    border-radius: 4px;
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 38px;
+    border: 1px solid #bbb;
+}
+
+.hometext h2 {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.hometext p {
+    color: #666;
+}
+
+.hometext ul {
+    color: #666;
+    margin-bottom: 5px;
+}
+
 .hbr-main .hbr-slider .owl-buttons .owl-prev,
-.hbr-main .hbr-slider .owl-buttons .owl-next{
+.hbr-main .hbr-slider .owl-buttons .owl-next {
 
 }
-.hbr-main .hbr-slider .owl-buttons .owl-prev{
+
+.hbr-main .hbr-slider .owl-buttons .owl-prev {
 
 }
-.hbr-main .hbr-slider .owl-buttons .owl-next{
 
-
+.hbr-main .hbr-slider .owl-buttons .owl-next {
 
 }
-.clear{
+
+.clear {
     clear: both;
 }
-

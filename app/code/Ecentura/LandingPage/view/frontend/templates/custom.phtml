@@ -2,22 +2,31 @@
 /**
  * Product list template
  *
- * @var $block RelatedProduct
+ * @var $block Ecentura\LandingPage\Block\Landing\Custom;
  */
 
 use Magento\Catalog\Block\Product\ReviewRendererInterface;
 use Magento\Framework\App\Action\Action;
-use SM\SumUp\Block\Post\RelatedProduct;
 
-$_productCollection = $block->getLoadedProductCollection();
+$_productCollection = $block->getProductCollection(10);
 $_helper = $block->getHelper();
 $pos = $block->getPositioned();
 $imageDisplayArea = 'category_page_list';
 $templateType = ReviewRendererInterface::FULL_VIEW;
 $viewMode = 'grid';
 $showDescription = true;
+$url_base = "12";
+$n = 1;
+$list_product = [
+    'best-seller' => $block->getProductCollection(10),
+    "tab-movies" => $block->getProductCollection(11),
+    'spoed' => $block->getProductCollection(12),
+    'kleine-oplage' => $block->getProductCollection(15)];
+;
+$catList = $block->getChildren(9);
 
 ?>
+
 <div class="container related">
     <div class="col-xs-12">
         <div class="title">Onze top 10 producten</div>
@@ -27,22 +36,23 @@ $showDescription = true;
          data-mage-init='{"mage/tabs": {"openedState": "active", "animate": {"duration": 100}, "active": 0,"disabledState": "disabled"}}'>
         <div class="heading-tabs">
             <div class="item title" data-role="collapsible">
-                <a class="switch" data-toggle="trigger" href="#tab-cars">Best Seller</a>
+                <a class="switch" data-toggle="trigger" href="#best-seller">Best Seller</a>
             </div>
             <div class="item title" data-role="collapsible">
-                <a class="switch" data-toggle="trigger" href="#tab-movies">Movies</a>
+                <a class="switch" data-toggle="trigger" href="#tab-movies">Budget</a>
             </div>
             <div class="item title" data-role="collapsible">
-                <a class="switch" data-toggle="trigger" href="#tab-movies1">Movies</a>
+                <a class="switch" data-toggle="trigger" href="#spoed">Spoed</a>
             </div>
             <div class="item title" data-role="collapsible">
-                <a class="switch" data-toggle="trigger" href="#tab-music1">Music</a>
+                <a class="switch" data-toggle="trigger" href="#kleine-oplage">Kleine oplage</a>
             </div>
         </div>
 
-
+        <?php foreach ($list_product as $key => $value) : ?>
         <div class="list-product">
-            <div id="tab-cars" class="item content" data-role="content">
+            <div id="<?=$key?>" class="item content" data-role="content">
+                <?php $_productCollection = $value ?>
                 <?php if (!$_productCollection->count()) : ?>
                     <div class="message info empty">
                         <div><?= $block->escapeHtml(__('We can\'t find products matching the selection.')) ?></div>
@@ -53,262 +63,154 @@ $showDescription = true;
                             <div class="title-border"></div>
                         </div>
                         <div class="hbr-main">
-                                <div class="hbr-content hbr-slider owl-carousel ">
-                                    <?php foreach ($_productCollection as $_product) : ?>
-                                        <div class="hbr-inner">
-                                            <div class=" hbr-inner item product product-item mp-blog-slider-item">
-                                                <div class="product-item-info" data-container="product-<?= /* @noEscape */
-                                                $viewMode ?>">
+                            <div class="hbr-content hbr-slider owl-carousel ">
+                                <?php foreach ($_productCollection as $_product) : ?>
+                                    <div class="hbr-inner">
+                                        <div class=" hbr-inner item product product-item mp-blog-slider-item">
+                                            <div class="product-item-info" style="margin-left: 15px"
+                                                 data-container="product-<?= /* @noEscape */
+                                                 $viewMode ?>">
+                                                <?php if ($n == 11) $n=1  ?>
+                                                <span class="round-number"><?= $n++ ?></span>
+                                                <?php
+                                                $productImage = $block->getImage($_product, $imageDisplayArea);
+                                                if ($pos != null) {
+                                                    $position = ' style="left:' . $productImage->getWidth() . 'px;'
+                                                        . 'top:' . $productImage->getHeight() . 'px;"';
+                                                }
+                                                ?>
+                                                <?php // Product Image?>
+                                                <a href="<?= $block->escapeUrl($_product->getProductUrl()) ?>"
+                                                   class="product photo product-item-photo"
+                                                   tabindex="-1">
+                                                    <?= $productImage->toHtml() ?>
+                                                </a>
+
+                                                <div class="product details product-item-details">
                                                     <?php
-                                                    $productImage = $block->getImage($_product, $imageDisplayArea);
-                                                    if ($pos != null) {
-                                                        $position = ' style="left:' . $productImage->getWidth() . 'px;'
-                                                            . 'top:' . $productImage->getHeight() . 'px;"';
-                                                    }
+                                                    $_productNameStripped = $block->stripTags($_product->getName(), null, true);
                                                     ?>
-                                                    <?php // Product Image?>
-                                                    <a href="<?= $block->escapeUrl($_product->getProductUrl()) ?>"
-                                                       class="product photo product-item-photo"
-                                                       tabindex="-1">
-                                                        <?= $productImage->toHtml() ?>
-                                                    </a>
-                                                    <div class="product details product-item-details">
-                                                        <?php
-                                                        $_productNameStripped = $block->stripTags($_product->getName(), null, true);
-                                                        ?>
-                                                        <strong class="product name product-item-name">
-                                                            <a class="product-item-link"
-                                                               href="<?= $block->escapeUrl($_product->getProductUrl()) ?>">
-                                                                <?= /* @noEscape */
-                                                                $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
-                                                            </a>
-                                                        </strong>
-                                                        <?= /* @noEscape */
-                                                        $block->getProductPrice($_product) ?>
-                                                        <?= $block->getProductDetailsHtml($_product) ?>
-                                                        <!---->
-                                                        <div class="product-item-inner">
+                                                    <strong class="product name product-item-name">
+                                                        <a class="product-item-link"
+                                                           href="<?= $block->escapeUrl($_product->getProductUrl()) ?>">
+                                                            <?= /* @noEscape */
+                                                            $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+                                                        </a>
+                                                    </strong>
+                                                    <?= /* @noEscape */
+                                                    $block->getProductPrice($_product) ?>
+                                                    <?= $block->getProductDetailsHtml($_product) ?>
+                                                    <!---->
+                                                    <div class="product-item-inner">
+                                                        <div
+                                                                class="product actions product-item-actions"<?= strpos($pos, $viewMode . '-actions') ? $block->escapeHtmlAttr($position) : '' ?>>
                                                             <div
-                                                                    class="product actions product-item-actions"<?= strpos($pos, $viewMode . '-actions') ? $block->escapeHtmlAttr($position) : '' ?>>
-                                                                <div
-                                                                        class="actions-primary"<?= strpos($pos, $viewMode . '-primary') ? $block->escapeHtmlAttr($position) : '' ?>>
-                                                                    <?php if ($_product->isSaleable()) : ?>
-                                                                        <?php $postParams = $block->getAddToCartPostParams($_product); ?>
+                                                                    class="actions-primary"<?= strpos($pos, $viewMode . '-primary') ? $block->escapeHtmlAttr($position) : '' ?>>
+                                                                <?php if ($_product->isSaleable()) : ?>
+                                                                    <?php $postParams = $block->getAddToCartPostParams($_product); ?>
 
-                                                                        <form data-role="tocart-form"
-                                                                              data-product-sku="<?= $block->escapeHtml($_product->getSku()) ?>"
-                                                                              action="<?= $block->escapeUrl($postParams['action']) ?>"
-                                                                              method="post">
-                                                                            <input type="hidden"
-                                                                                   name="product"
-                                                                                   value="<?= /* @noEscape */
-                                                                                   $postParams['data']['product'] ?>">
-                                                                            <input type="hidden" name="<?= /* @noEscape */
-                                                                            Action::PARAM_NAME_URL_ENCODED ?>"
-                                                                                   value="<?= /* @noEscape */
-                                                                                   $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
-                                                                            <?= $block->getBlockHtml('formkey') ?>
-                                                                            <button type="submit"
-                                                                                    title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
-                                                                                    class="action tocart primary">
-                                                                                <span><?= $block->escapeHtml(__('Add to Cart')) ?></span>
-                                                                            </button>
-                                                                        </form>
+                                                                    <form data-role="tocart-form"
+                                                                          data-product-sku="<?= $block->escapeHtml($_product->getSku()) ?>"
+                                                                          action="<?= $block->escapeUrl($postParams['action']) ?>"
+                                                                          method="post">
+                                                                        <input type="hidden"
+                                                                               name="product"
+                                                                               value="<?= /* @noEscape */
+                                                                               $postParams['data']['product'] ?>">
+                                                                        <input type="hidden" name="<?= /* @noEscape */
+                                                                        Action::PARAM_NAME_URL_ENCODED ?>"
+                                                                               value="<?= /* @noEscape */
+                                                                               $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
+                                                                        <?= $block->getBlockHtml('formkey') ?>
+                                                                        <button type="submit"
+                                                                                title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                                                                class="action tocart primary">
+                                                                            <span><?= $block->escapeHtml(__('Add to Cart')) ?></span>
+                                                                        </button>
+                                                                    </form>
+                                                                <?php else : ?>
+                                                                    <?php if ($_product->isAvailable()) : ?>
+                                                                        <div class="stock available">
+                                                                            <span><?= $block->escapeHtml(__('In stock')) ?></span>
+                                                                        </div>
                                                                     <?php else : ?>
-                                                                        <?php if ($_product->isAvailable()) : ?>
-                                                                            <div class="stock available">
-                                                                                <span><?= $block->escapeHtml(__('In stock')) ?></span>
-                                                                            </div>
-                                                                        <?php else : ?>
-                                                                            <div class="stock unavailable">
-                                                                                <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
-                                                                            </div>
-                                                                        <?php endif; ?>
+                                                                        <div class="stock unavailable">
+                                                                            <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+                                                                        </div>
                                                                     <?php endif; ?>
-                                                                </div>
-                                                                <div data-role="add-to-links"
-                                                                     class="actions-secondary"<?= strpos($pos, $viewMode . '-secondary') ? $block->escapeHtmlAttr($position) : '' ?>>
-                                                                    <?php if ($addToBlock = $block->getChildBlock('addto')) : ?>
-                                                                        <?= $addToBlock->setProduct($_product)->getChildHtml() ?>
-                                                                    <?php endif; ?>
-                                                                </div>
+                                                                <?php endif; ?>
                                                             </div>
-                                                            <?php if ($showDescription) : ?>
-                                                                <div class="product description product-item-description">
-                                                                    <?= /* @noEscape */
-                                                                    $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
-                                                                    <a href="<?= $block->escapeUrl($_product->getProductUrl()) ?>"
-                                                                       title="<?= /* @noEscape */
-                                                                       $_productNameStripped ?>"
-                                                                       class="action more"><?= $block->escapeHtml(__('Learn More')) ?></a>
-                                                                </div>
-                                                            <?php endif; ?>
-
+                                                            <div data-role="add-to-links"
+                                                                 class="actions-secondary"<?= strpos($pos, $viewMode . '-secondary') ? $block->escapeHtmlAttr($position) : '' ?>>
+                                                                <?php if ($addToBlock = $block->getChildBlock('addto')) : ?>
+                                                                    <?= $addToBlock->setProduct($_product)->getChildHtml() ?>
+                                                                <?php endif; ?>
+                                                            </div>
                                                         </div>
+                                                        <?php if ($showDescription) : ?>
+                                                            <div class="product description product-item-description">
+                                                                <?= /* @noEscape */
+                                                                $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
+                                                                <a href="<?= $block->escapeUrl($_product->getProductUrl()) ?>"
+                                                                   title="<?= /* @noEscape */
+                                                                   $_productNameStripped ?>"
+                                                                   class="action more"><?= $block->escapeHtml(__('Learn More')) ?></a>
+                                                            </div>
+                                                        <?php endif; ?>
+
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
-                                    <?php endforeach; ?>
-                                </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
                     </div>
                 <?php endif; ?></div>
-
-            <div id="tab-movies" class="item content" data-role="content">Movies content</div>
-
-            <div id="tab-movies11" class="item content" data-role="content">Movies content</div>
-
-
-
-            <div id="tab-music1" class="item content" data-role="content">123123123</div>
         </div>
-
+        <?php endforeach; ?>
     </div>
 </div>
 <div class="ad_related_pro_below">
     <div class="col-xs-12">
         <div class="title">Populaire materialen</div>
     </div>
+
     <div class="raleted_pro_general_below">
+
         <div class="row theme-cat-group">
-                <div class="raleted_pro_detailds">
-                    <a href="https://www.pinkcube.nl/tassen-bedrukken/katoenen-rugzakken.html"
-                       title="Katoenen rugzakken bedrukken" class="panel-body">
-                        <div class="cat-img">
-                            <img src="https://www.pinkcube.nl/media/catalog/category/cache/117x90/katoenen-rugzakken.png"
-                                 alt="Katoenen rugzakken bedrukken" width="117" height="90">
-                        </div>
-                        <div class="sub-info">
-                            <div class="align-middle">
-                                <span class="name">Katoenen rugzakken</span>
-                                <span class="sub-caption">
-                        <ul>
-                           <li>14 artikelen</li>
-                        </ul>
-                     </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="raleted_pro_detailds">
-                    <a href="https://www.pinkcube.nl/tassen-bedrukken/non-woven-rugzakken.html"
-                       title="Non woven rugzakken bedrukken" class="panel-body">
-                        <div class="cat-img">
-                            <img src="https://www.pinkcube.nl/media/catalog/category/cache/117x90/non-woven-rugzakken.png"
-                                 alt="Non woven rugzakken bedrukken" width="117" height="90">
-                        </div>
-                        <div class="sub-info">
-                            <div class="align-middle">
-                                <span class="name">Non woven rugzakken</span>
-                                <span class="sub-caption">
-                        <ul>
-                           <li>4 artikelen</li>
-                        </ul>
-                     </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="raleted_pro_detailds">
-                    <a href="https://www.pinkcube.nl/tassen-bedrukken/polyester-rugzakken.html"
-                       title="Polyester rugzakken bedrukken" class="panel-body">
-                        <div class="cat-img">
-                            <img src="https://www.pinkcube.nl/media/catalog/category/cache/117x90/polyester-rugzakken.png"
-                                 alt="Polyester rugzakken bedrukken" width="117" height="90">
-                        </div>
-                        <div class="sub-info">
-                            <div class="align-middle">
-                                <span class="name">Polyester rugzakken</span>
-                                <span class="sub-caption">
-                        <ul>
-                           <li>32 artikelen</li>
-                        </ul>
-                     </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+            <?php foreach ($catList as $item):?>
+                <?php foreach ($item as $cat):?>
+                    <div class="raleted_pro_detailds">
+                        <a href="<?=$cat['url']?>"
+                           title="Katoenen rugzakken bedrukken" class="panel-body">
+                            <div class="cat-img">
+                                    <?php if($cat['image']) :?>
+                                    <img src="<?= $block->getUrl().'pub/media/catalog/category/'.$cat['image'] ?>"
+                                         alt="<?= $cat['name']?>" width="117" height="90">
 
-                <div class="raleted_pro_detailds">
-                    <a href="https://www.pinkcube.nl/tassen-bedrukken/jute-tassen.html" title="Jute tassen bedrukken"
-                       class="panel-body">
-                        <div class="cat-img">
-                            <img src="https://www.pinkcube.nl/media/catalog/category/cache/117x90/jute-tassen.png"
-                                 alt="Jute tassen bedrukken" width="117" height="90">
-                        </div>
-                        <div class="sub-info">
-                            <div class="align-middle">
-                                <span class="name">Jute tassen</span>
-                                <span class="sub-caption">
-                        <ul>
-                           <li>39 artikelen</li>
-                        </ul>
-                     </span>
+                                    <?php  endif;?>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="raleted_pro_detailds">
-                    <a href="https://www.pinkcube.nl/tassen-bedrukken/non-woven-tassen.html"
-                       title="Non woven tassen bedrukken" class="panel-body">
-                        <div class="cat-img">
-                            <img src="https://www.pinkcube.nl/media/catalog/category/cache/117x90/non-woven-tassen.png"
-                                 alt="Non woven tassen bedrukken" width="117" height="90">
-                        </div>
-                        <div class="sub-info">
-                            <div class="align-middle">
-                                <span class="name">Non woven tassen</span>
-                                <span class="sub-caption">
-                        <ul>
-                           <li>43 artikelen</li>
-                        </ul>
-                     </span>
+                            <div class="sub-info">
+                                <div class="align-middle">
+                                    <span class="name"><?= $cat['name']?></span>
+                                    <span class="sub-caption">
+                                <ul>
+                                   <li>14 artikelen</li>
+                                </ul>
+                             </span>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="raleted_pro_detailds">
-                    <a href="https://www.pinkcube.nl/tassen-bedrukken/vilten-tassen.html"
-                       title="Vilten tassen bedrukken" class="panel-body">
-                        <div class="cat-img">
-                            <img src="https://www.pinkcube.nl/media/catalog/category/cache/117x90/vilten-tassen_1.png"
-                                 alt="Vilten tassen bedrukken" width="117" height="90">
-                        </div>
-                        <div class="sub-info">
-                            <div class="align-middle">
-                                <span class="name">Vilten tassen</span>
-                                <span class="sub-caption">
-                        <ul>
-                           <li>5 artikelen</li>
-                        </ul>
-                     </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="raleted_pro_detailds">
-                    <a href="https://www.pinkcube.nl/tassen-bedrukken/non-woven-schoudertassen.html"
-                       title="Non woven schoudertassen bedrukken" class="panel-body">
-                        <div class="cat-img">
-                            <img src="https://www.pinkcube.nl/media/catalog/category/cache/117x90/non-woven-schoudertassen_2.png"
-                                 alt="Non woven schoudertassen bedrukken" width="117" height="90">
-                        </div>
-                        <div class="sub-info">
-                            <div class="align-middle">
-                                <span class="name">Non woven schoudertassen</span>
-                                <span class="sub-caption">
-                        <ul>
-                           <li>7 artikelen</li>
-                        </ul>
-                     </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                            <i class="fa fa-angle-rights" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                <?php endforeach;?>
+            <?php endforeach;?>
         </div>
-    <div class="clear"></div>
+    </div>
+        <div class="clear"></div>
     </div>
 </div>
 
