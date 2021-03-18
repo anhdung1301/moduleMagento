@@ -19,7 +19,7 @@ use Magento\Framework\Url\Helper\Data;
 class Custom extends ListProduct
 {
     protected $_categoryFactory;
-
+    protected $helperData;
     /**
      * @var Registry
      */
@@ -38,12 +38,6 @@ class Custom extends ListProduct
      * @var Output
      */
     protected $outputHelper;
-
-    /**
-     * @var \Magento\Sales\Model\ResourceModel\Report\Bestsellers\CollectionFactory
-     */
-    protected $_collectionFactory;
-
     /**
      * RelatedProduct constructor.
      *
@@ -64,16 +58,16 @@ class Custom extends ListProduct
         \Magento\Catalog\Model\CategoryFactory $categoryFactory,
         CategoryRepositoryInterface $categoryRepository,
         CollectionFactory $productCollectionFactory,
-        \Magento\Sales\Model\ResourceModel\Report\Bestsellers\CollectionFactory $collectionFactory,
         Output $output,
         Data $urlHelper,
+        \Ecentura\LandingPage\Helper\Data $helperData,
         array $data = []
     ) {
         $this->_registry = $registry;
         $this->_productCollectionFactory = $productCollectionFactory;
         $this->outputHelper = $output;
+        $this->helperData = $helperData;
         $this->_categoryFactory = $categoryFactory;
-        $this->_collectionFactory = $collectionFactory;
         parent::__construct($context, $postDataHelper, $layerResolver, $categoryRepository, $urlHelper, $data);
     }
 
@@ -84,10 +78,7 @@ class Custom extends ListProduct
     {
         return $this->outputHelper;
     }
-    /**
-     * @return mixed
-     * get ProductCollection in same brand ( filter by Atrribute Option_Id )
-     */
+
     public function getProductCollection($categoryId)
     {
         $category = $this->_categoryFactory->create()->load($categoryId);
@@ -100,6 +91,55 @@ class Custom extends ListProduct
         return $collection;
     }
 
+    public function getTitleTab($title){
+        return $this->helperData->getTabPro($title);
+    }
+    public function getProductTab(){
+        return [
+            'tab-1' => $this->getProductCollection($this->helperData->getTabPro('cat_tab1')),
+            "tab-2" => $this->getProductCollection($this->helperData->getTabPro('cat_tab2')),
+            'tab-3' => $this->getProductCollection($this->helperData->getTabPro('cat_tab3')),
+            'tab-4' => $this->getProductCollection($this->helperData->getTabPro('cat_tab4'))
+        ];
+    }
+    public function getInforCat($ide){
+        return $this->helperData->getListcategories($ide);
+    }
+    public function getCategory($categoryId)
+    {
+        $category = $this->_categoryFactory->create()->load($categoryId);
+        return $category;
+    }
+    public function list(){
+        return [
+            'title_list1' => 'cat_list1',
+            'title_list2' => 'cat_list2',
+            'title_list3' => 'cat_list3'
+            ];
+
+    }
+    public function getChildren($categoryId)
+    {
+        $categories = $this->_categoryFactory->create()->load($categoryId)->getChildren();
+        if ($categories) {
+            $dataChils = array();
+            $subcategories = explode(',', $categories);
+            foreach ($subcategories as $key => $value) {
+                $dataChil[$value] = [
+                    'name' => $this->getCategory($value)->getName(),
+                    'url' => $this->getCategory($value)->getUrl(),
+                    'image'=> $this->getCategory($value)->getImage(),
+                    'count_product'=> $this->getCategory($value)->getProductCount(),
+                ];
+            }
+
+            array_push($dataChils,$dataChil);
+            return $dataChils;
+        }
+    }
+    public function getListCat($id){
+        return $this->getChildren($id);
+    }
 
     /**
      * @inheritdoc
@@ -132,27 +172,5 @@ class Custom extends ListProduct
     {
         return $this;
     }
-    public function getCategory($categoryId)
-    {
-        $category = $this->_categoryFactory->create()->load($categoryId);
-        return $category;
-    }
-    public function getChildren($categoryId)
-    {
-        $categories = $this->_categoryFactory->create()->load($categoryId)->getChildren();
-        if ($categories) {
-            $dataChils = array();
-            $subcategories = explode(',', $categories);
-            foreach ($subcategories as $key => $value) {
-                $dataChil[$value] = [
-                    'name' => $this->getCategory($value)->getName(),
-                    'url' => $this->getCategory($value)->getUrl(),
-                    'image'=> $this->getCategory($value)->getImage(),
-                ];
-            }
-            array_push($dataChils,$dataChil);
-            return $dataChils;
-        }
 
-    }
 }

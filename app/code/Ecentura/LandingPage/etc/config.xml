@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <landing>
+            <list_product>
+                <title_tab1>Best verkocht</title_tab1>
+                <title_tab2>Budget</title_tab2>
+                <title_tab3>Spoed</title_tab3>
+                <title_tab4>Kleine oplage</title_tab4>
+                <cat_tab1>10</cat_tab1>
+                <cat_tab2>11</cat_tab2>
+                <cat_tab3>12</cat_tab3>
+                <cat_tab4>13</cat_tab4>
+            </list_product>
+            <list_category>
+                <title_list1>Populaire materialen</title_list1>
+                <title_list2>Populaire categorieën</title_list2>
+                <title_list3>Populaire soorten tassen</title_list3>
+                <cat_list1>9</cat_list1>
+                <cat_list2>10</cat_list2>
+                <cat_list3>11</cat_list3>
+            </list_category>
+        </landing>
+    </default>
+</config>

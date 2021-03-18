@@ -7,8 +7,6 @@
 
 use Magento\Catalog\Block\Product\ReviewRendererInterface;
 use Magento\Framework\App\Action\Action;
-
-$_productCollection = $block->getProductCollection(10);
 $_helper = $block->getHelper();
 $pos = $block->getPositioned();
 $imageDisplayArea = 'category_page_list';
@@ -17,14 +15,7 @@ $viewMode = 'grid';
 $showDescription = true;
 $url_base = "12";
 $n = 1;
-$list_product = [
-    'best-seller' => $block->getProductCollection(10),
-    "tab-movies" => $block->getProductCollection(11),
-    'spoed' => $block->getProductCollection(12),
-    'kleine-oplage' => $block->getProductCollection(15)];
-;
-$catList = $block->getChildren(9);
-
+$list_product = $block->getProductTab();
 ?>
 
 <div class="container related">
@@ -36,16 +27,16 @@ $catList = $block->getChildren(9);
          data-mage-init='{"mage/tabs": {"openedState": "active", "animate": {"duration": 100}, "active": 0,"disabledState": "disabled"}}'>
         <div class="heading-tabs">
             <div class="item title" data-role="collapsible">
-                <a class="switch" data-toggle="trigger" href="#best-seller">Best Seller</a>
+                <a class="switch" data-toggle="trigger" href="#tab-1"><?= $block->getTitleTab('title_tab1')?></a>
             </div>
             <div class="item title" data-role="collapsible">
-                <a class="switch" data-toggle="trigger" href="#tab-movies">Budget</a>
+                <a class="switch" data-toggle="trigger" href="#tab-2"><?= $block->getTitleTab('title_tab2')?></a>
             </div>
             <div class="item title" data-role="collapsible">
-                <a class="switch" data-toggle="trigger" href="#spoed">Spoed</a>
+                <a class="switch" data-toggle="trigger" href="#tab-3"><?= $block->getTitleTab('title_tab3')?></a>
             </div>
             <div class="item title" data-role="collapsible">
-                <a class="switch" data-toggle="trigger" href="#kleine-oplage">Kleine oplage</a>
+                <a class="switch" data-toggle="trigger" href="#tab-4"><?= $block->getTitleTab('title_tab4')?></a>
             </div>
         </div>
 
@@ -108,7 +99,6 @@ $catList = $block->getChildren(9);
                                                                     class="actions-primary"<?= strpos($pos, $viewMode . '-primary') ? $block->escapeHtmlAttr($position) : '' ?>>
                                                                 <?php if ($_product->isSaleable()) : ?>
                                                                     <?php $postParams = $block->getAddToCartPostParams($_product); ?>
-
                                                                     <form data-role="tocart-form"
                                                                           data-product-sku="<?= $block->escapeHtml($_product->getSku()) ?>"
                                                                           action="<?= $block->escapeUrl($postParams['action']) ?>"
@@ -170,50 +160,53 @@ $catList = $block->getChildren(9);
                     </div>
                 <?php endif; ?></div>
         </div>
+
         <?php endforeach; ?>
     </div>
 </div>
-<div class="ad_related_pro_below">
-    <div class="col-xs-12">
-        <div class="title">Populaire materialen</div>
-    </div>
-
-    <div class="raleted_pro_general_below">
-
-        <div class="row theme-cat-group">
-            <?php foreach ($catList as $item):?>
-                <?php foreach ($item as $cat):?>
-                    <div class="raleted_pro_detailds">
-                        <a href="<?=$cat['url']?>"
-                           title="Katoenen rugzakken bedrukken" class="panel-body">
-                            <div class="cat-img">
-                                    <?php if($cat['image']) :?>
-                                    <img src="<?= $block->getUrl().'pub/media/catalog/category/'.$cat['image'] ?>"
-                                         alt="<?= $cat['name']?>" width="117" height="90">
-
-                                    <?php  endif;?>
+<?php foreach ($block->list() as $key => $value): ?>
+    <div class="ad_related_pro_below">
+        <div class="col-xs-12">
+            <div class="title"><?= $block->getInforCat($key) ?></div>
+        </div>
+        <div class="raleted_pro_general_below">
+            <div class="row theme-cat-group">
+                <?php if ($block->getListCat($block->getInforCat($value)) && $block->getListCat($block->getInforCat($value))) : ?>
+                    <?php foreach ($block->getListCat($block->getInforCat($value)) as $item): ?>
+                        <?php foreach ($item as $cat): ?>
+                            <div class="raleted_pro_detailds">
+                                <a href="<?= $cat['url'] ?>"
+                                   title="<?= $cat['name'] ?>" class="panel-body">
+                                    <div class="cat-img">
+                                        <?php if ($cat['image']) : ?>
+                                            <img src="<?= $block->getUrl() . 'pub/media/catalog/category/' . $cat['image'] ?>"
+                                                 alt="<?= $cat['name'] ?>" width="117" height="90">
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="sub-info">
+                                        <div class="align-middle">
+                                            <span class="name"><?= $cat['name'] ?></span>
+                                            <span class="sub-caption">
+                                        <ul>
+                                           <li><?= $cat['count_product']; ?> artikelen</li>
+                                        </ul>
+                                     </span>
+                                        </div>
+                                    </div>
+                                    <i class="fa fa-angle-rights" aria-hidden="true"></i>
+                                </a>
                             </div>
-                            <div class="sub-info">
-                                <div class="align-middle">
-                                    <span class="name"><?= $cat['name']?></span>
-                                    <span class="sub-caption">
-                                <ul>
-                                   <li>14 artikelen</li>
-                                </ul>
-                             </span>
-                                </div>
-                            </div>
-                            <i class="fa fa-angle-rights" aria-hidden="true"></i>
-                        </a>
+                        <?php endforeach; ?>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <div class="message info empty">
+                        <div><?= $block->escapeHtml(__('No find  matching the selection.')) ?></div>
                     </div>
-                <?php endforeach;?>
-            <?php endforeach;?>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
-        <div class="clear"></div>
-    </div>
-</div>
-
+<?php endforeach;?>
 <script type="text/javascript" xml="space">// <![CDATA[
     require(['jquery', 'cpowlcarousel'], function ($) {
         jQuery(document).ready(function () {
@@ -229,5 +222,12 @@ $catList = $block->getChildren(9);
                 navigation: true,
             });
         });
+        $(".view-hometext-mobile").click(function(){
+            $(".view-hometext-mobile").hide();
+            $(".content-below").show();
+        });
+
     });
-    // ]]></script>
+
+   </script>
+

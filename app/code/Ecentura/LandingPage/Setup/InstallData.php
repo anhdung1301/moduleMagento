@@ -48,7 +48,7 @@ class InstallData implements InstallDataInterface
         <div class="mhmr">
 
             <div class="head">
-                <a href="https://www.pinkcube.nl/moeiteloos-het-mooiste-resultaat"
+                <a href="'.$url_base.'"
                    title="Moeiteloos het mooiste resultaat" target="_blank">Moeiteloos het <strong>mooiste
                         resultaat</strong></a>
             </div>
@@ -116,6 +116,7 @@ class InstallData implements InstallDataInterface
 
 </div>';
         $content = '
+        <div class="view-hometext-mobile"> <a href="javascript:;">Bekijk meer info over tassen</a> </div>
         <div class="content-below" >
     <div class="container">
         <div class="hometext row">
