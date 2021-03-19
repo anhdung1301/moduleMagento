@@ -8,8 +8,21 @@
     </type>
     <virtualType name="Ecentura\LookBook\Model\ResourceModel\LookBook\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
-            <argument name="mainTable" xsi:type="string">ecentura_lookbook_product</argument>
+            <argument name="mainTable" xsi:type="string">ecentura_lookbook_location</argument>
             <argument name="resourceModel" xsi:type="string">Ecentura\LookBook\Model\ResourceModel\LookBook</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="image_listing_data_source" xsi:type="string">Ecentura\LookBook\Model\ResourceModel\Image\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Ecentura\LookBook\Model\ResourceModel\Image\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">ecentura_lookbook_image</argument>
+            <argument name="resourceModel" xsi:type="string">Ecentura\LookBook\Model\ResourceModel\Image</argument>
         </arguments>
     </virtualType>
 </config>

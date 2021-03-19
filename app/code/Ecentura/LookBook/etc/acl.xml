@@ -5,7 +5,8 @@
             <resource id="Magento_Backend::admin">
                 <resource id="Magento_Backend::content">
                     <resource id="Ecentura_LookBook::lookbook" title="Look Book" sortOrder="51">
-                        <resource id="Ecentura_LookBook::product" title="Product" sortOrder="10"/>
+                        <resource id="Ecentura_LookBook::product" title="Location" sortOrder="10"/>
+                        <resource id="Ecentura_LookBook::image" title="Image" sortOrder="13"/>
                     </resource>
                 </resource>
             </resource>

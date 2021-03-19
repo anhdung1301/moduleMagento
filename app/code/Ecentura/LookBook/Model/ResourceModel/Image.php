@@ -2,7 +2,7 @@
 namespace Ecentura\LookBook\Model\ResourceModel;
 
 
-class LookBook extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
+class Image extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
 
     public function __construct(
@@ -14,7 +14,7 @@ class LookBook extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 
     protected function _construct()
     {
-        $this->_init('ecentura_lookbook_location', 'id');
+        $this->_init('ecentura_lookbook_image', 'image_id');
     }
 
 }

@@ -4,8 +4,11 @@
     <menu>
         <add id="Ecentura_LookBook::lookbook" title="Management Lookbook" module="Ecentura_LookBook" sortOrder="100"
              resource="Ecentura_LookBook::lookbook" parent="Magento_Backend::content"/>
-        <add id="Ecentura_LookBook::product" title="LookBook Product" module="Ecentura_LookBook" sortOrder="10"
+        <add id="Ecentura_LookBook::product" title="Location" module="Ecentura_LookBook" sortOrder="10"
              action="lookbook/index/index" resource="Ecentura_LookBook::product"
+             parent="Ecentura_LookBook::lookbook"/>
+        <add id="Ecentura_LookBook::image" title="Image" module="Ecentura_LookBook" sortOrder="12"
+             action="lookbook/image/index" resource="Ecentura_LookBook::image"
              parent="Ecentura_LookBook::lookbook"/>
     </menu>
 </config>

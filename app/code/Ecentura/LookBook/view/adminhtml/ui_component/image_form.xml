@@ -9,7 +9,7 @@
       xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">lookbook_form.lookbook_form_data_source</item>
+            <item name="provider" xsi:type="string">image_form.image_form_data_source</item>
         </item>
         <item name="label" xsi:type="string" translate="true">Page Information</item>
         <item name="template" xsi:type="string">templates/form/collapsible</item>
@@ -17,29 +17,29 @@
 
     <settings>
         <buttons>
-            <button name="save" class="Ecentura\LookBook\Block\Adminhtml\Index\Edit\SaveButton"/>
-            <button name="delete" class="Ecentura\LookBook\Block\Adminhtml\Index\Edit\DeleteButton"/>
-            <button name="back" class="Ecentura\LookBook\Block\Adminhtml\Index\Edit\BackButton"/>
+<!--            <button name="save" class="Ecentura\LookBook\Block\Adminhtml\Index\Edit\SaveButton"/>-->
+<!--            <button name="delete" class="Ecentura\LookBook\Block\Adminhtml\Index\Edit\DeleteButton"/>-->
+            <button name="back" class="Ecentura\LookBook\Block\Adminhtml\Image\Edit\BackButton"/>
         </buttons>
-        <namespace>lookbook_form</namespace>
+        <namespace>image_form</namespace>
         <dataScope>data</dataScope>
         <deps>
-            <dep>lookbook_form.lookbook_form_data_source</dep>
+            <dep>image_form.image_form_data_source</dep>
         </deps>
     </settings>
-    <dataSource name="lookbook_form_data_source">
+    <dataSource name="image_form_data_source">
         <argument name="data" xsi:type="array">
             <item name="js_config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
             </item>
         </argument>
         <settings>
-            <submitUrl path="lookbook/index/save"/>
+            <submitUrl path="Image/index/save"/>
         </settings>
-        <dataProvider class="Ecentura\LookBook\Model\Lookbook\DataProvider" name="lookbook_form_data_source">
+        <dataProvider class="Ecentura\LookBook\Model\Image\DataProvider" name="image_form_data_source">
             <settings>
-                <requestFieldName>id</requestFieldName>
-                <primaryFieldName>id</primaryFieldName>
+                <requestFieldName>image_id</requestFieldName>
+                <primaryFieldName>image_id</primaryFieldName>
             </settings>
         </dataProvider>
     </dataSource>
@@ -47,7 +47,7 @@
         <settings>
             <label/>
         </settings>
-        <field name="id" formElement="input">
+        <field name="image_id" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">page</item>
@@ -56,10 +56,11 @@
             <settings>
                 <dataType>text</dataType>
                 <visible>false</visible>
-                <dataScope>id</dataScope>
+                <dataScope>image_id</dataScope>
             </settings>
         </field>
-        <field name="xpos" sortOrder="20" formElement="input">
+
+        <field name="name" sortOrder="10" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">page</item>
@@ -70,51 +71,27 @@
                     <rule name="required-entry" xsi:type="boolean">true</rule>
                 </validation>
                 <dataType>text</dataType>
-                <label translate="true">X Positon</label>
-                <dataScope>xpos</dataScope>
+                <label translate="true">Name</label>
+                <dataScope>name</dataScope>
             </settings>
         </field>
-        <field name="ypos" sortOrder="30" formElement="input">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">page</item>
-                </item>
-            </argument>
+        <field name="image" formElement="imageUploader">
             <settings>
-                <validation>
-                    <rule name="required-entry" xsi:type="boolean">true</rule>
-                </validation>
-                <dataType>text</dataType>
-                <label translate="true">Y Positon</label>
-                <dataScope>ypos</dataScope>
+                <notice translate="true">Some notice.</notice>
+                <label translate="true">Image Uploader Example</label>
+                <componentType>imageUploader</componentType>
             </settings>
-        </field>
-        <field name="title" sortOrder="10" formElement="input">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">page</item>
-                </item>
-            </argument>
-            <settings>
-                <validation>
-                    <rule name="required-entry" xsi:type="boolean">true</rule>
-                </validation>
-                <dataType>text</dataType>
-                <label translate="true">Title</label>
-                <dataScope>title</dataScope>
-            </settings>
-        </field>
-        <field name="description">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="formElement" xsi:type="string">textarea</item>
-                    <item name="cols" xsi:type="number">15</item>
-                    <item name="rows" xsi:type="number">5</item>
-                    <item name="sortOrder" xsi:type="number">15</item>
-                    <item name="label" translate="true" xsi:type="string">Description</item>
-                    <item name="dataType" translate="true" xsi:type="string">text</item>
-                </item>
-            </argument>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+<!--                        <maxFileSize>2097152</maxFileSize>-->
+                        <uploaderConfig>
+                            <param xsi:type="string" name="url">image</param>
+                        </uploaderConfig>
+                    </settings>
+                </imageUploader>
+            </formElements>
         </field>
         <field name="is_active" sortOrder="50" formElement="checkbox">
             <argument name="data" xsi:type="array">
@@ -122,9 +99,9 @@
                     <item name="source" xsi:type="string">page</item>
                     <item name="default" xsi:type="number">1</item>
                     <item name="sortOrder" xsi:type="number">1</item>
-
                 </item>
             </argument>
+
             <settings>
                 <dataType>boolean</dataType>
                 <label translate="true">Enable</label>

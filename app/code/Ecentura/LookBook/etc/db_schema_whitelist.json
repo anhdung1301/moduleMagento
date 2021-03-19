@@ -14,5 +14,33 @@
         "constraint": {
             "PRIMARY": true
         }
+    },
+    "ecentura_lookbook_location": {
+        "column": {
+            "id": true,
+            "title": true,
+            "description": true,
+            "xpos": true,
+            "ypos": true,
+            "is_active": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "ecentura_lookbook_image": {
+        "column": {
+            "id": true,
+            "image": true,
+            "location": true,
+            "is_active": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
     }
 }
