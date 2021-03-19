@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Ecentura_LookBook::lookbook" title="Management Lookbook" module="Ecentura_LookBook" sortOrder="100"
+             resource="Ecentura_LookBook::lookbook" parent="Magento_Backend::content"/>
+        <add id="Ecentura_LookBook::product" title="LookBook Product" module="Ecentura_LookBook" sortOrder="10"
+             action="lookbook/index/index" resource="Ecentura_LookBook::product"
+             parent="Ecentura_LookBook::lookbook"/>
+    </menu>
+</config>

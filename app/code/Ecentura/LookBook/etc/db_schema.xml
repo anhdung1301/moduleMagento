@@ -10,10 +10,10 @@
     <table name="ecentura_lookbook_product" resource="default" engine="innodb" comment="Custom">
         <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
         <column xsi:type="varchar" name="title" nullable="true" length="255" comment="Title"/>
-        <column xsi:type="mediumtext" name="short_description" nullable="true" comment=" Short Description"/>
         <column xsi:type="mediumtext" name="description" nullable="true" comment="Post Short Description"/>
         <column xsi:type="int" name="xpos" padding="10" unsigned="true" nullable="true" comment="X Position"/>
         <column xsi:type="int" name="ypos" padding="10" unsigned="true" nullable="true" comment="Y Position"/>
+        <column xsi:type="int" name="is_active" padding="2" nullable="true" default="1" comment="Is Active"/>
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="true" default="CURRENT_TIMESTAMP"
                 comment="Post Created At"/>
         <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="true" default="CURRENT_TIMESTAMP"

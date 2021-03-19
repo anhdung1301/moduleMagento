@@ -6,13 +6,13 @@ use Magento\Framework\Model\AbstractModel;
 
 class LookBook extends AbstractModel implements IdentityInterface
 {
-    const CACHE_TAG = 'ecentura_lookbook_product';
+    const CACHE_LOOKBOOK = 'ecentura_lookbook_product';
 
-    protected $_cacheTag = 'ecentura_lookbook_product';
+    protected $_cachelookbook = 'ecentura_lookbook_product';
 
     protected $_eventPrefix = 'ecentura_lookbook_product';
 
-
+    const STATUS_ENABLED =1;
     protected function _construct()
     {
         $this->_init('Ecentura\LookBook\Model\ResourceModel\LookBook');
@@ -23,6 +23,6 @@ class LookBook extends AbstractModel implements IdentityInterface
      */
     public function getIdentities()
     {
-        return [self::CACHE_TAG . '_' . $this->getId()];
+        return [self::CACHE_LOOKBOOK . '_' . $this->getId()];
     }
 }
