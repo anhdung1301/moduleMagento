@@ -50,6 +50,15 @@ abstract class AbstractSave extends Action
         try {
             $model = $this->getModel();
 
+            if (isset($data['image'][0]['name']) && isset($data['image'][0]['tmp_name'])) {
+                $data['image'] = $data['image'][0]['name'];
+            } elseif (isset($data['image'][0]['name']) && !isset($data['image'][0]['tmp_name'])) {
+                $data['image'] = $data['image'][0]['name'];
+            } else {
+                $data['image'] = '';
+            }
+            $this->imageUploader->moveFileFromTmp($data['image']);
+
             if ($id) {
                 $model->load($id);
             } elseif (!$id) {

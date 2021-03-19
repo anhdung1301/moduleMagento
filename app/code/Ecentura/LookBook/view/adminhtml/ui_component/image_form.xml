@@ -17,7 +17,7 @@
 
     <settings>
         <buttons>
-<!--            <button name="save" class="Ecentura\LookBook\Block\Adminhtml\Index\Edit\SaveButton"/>-->
+            <button name="save" class="Ecentura\LookBook\Block\Adminhtml\Image\Edit\SaveButton"/>
 <!--            <button name="delete" class="Ecentura\LookBook\Block\Adminhtml\Index\Edit\DeleteButton"/>-->
             <button name="back" class="Ecentura\LookBook\Block\Adminhtml\Image\Edit\BackButton"/>
         </buttons>
@@ -34,7 +34,7 @@
             </item>
         </argument>
         <settings>
-            <submitUrl path="Image/index/save"/>
+            <submitUrl path="lookbook/image/save"/>
         </settings>
         <dataProvider class="Ecentura\LookBook\Model\Image\DataProvider" name="image_form_data_source">
             <settings>
@@ -75,20 +75,33 @@
                 <dataScope>name</dataScope>
             </settings>
         </field>
-        <field name="image" formElement="imageUploader">
+
+        <field formElement="imageUploader" name="image" sortOrder="40" >
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">page</item>
+                </item>
+            </argument>
             <settings>
-                <notice translate="true">Some notice.</notice>
-                <label translate="true">Image Uploader Example</label>
-                <componentType>imageUploader</componentType>
+                <elementTmpl>ui/form/element/uploader/image</elementTmpl>
+                <dataType>string</dataType>
+                <label translate="true">Image</label>
+                <visible>true</visible>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
             </settings>
             <formElements>
                 <imageUploader>
                     <settings>
-                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
-<!--                        <maxFileSize>2097152</maxFileSize>-->
+                        <required>true</required>
                         <uploaderConfig>
-                            <param xsi:type="string" name="url">image</param>
+                            <param xsi:type="url" name="url" path="lookbook/image/upload"/>
                         </uploaderConfig>
+                        <previewTmpl>Ecentura_LookBook/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
                     </settings>
                 </imageUploader>
             </formElements>

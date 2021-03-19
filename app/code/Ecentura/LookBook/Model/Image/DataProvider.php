@@ -27,6 +27,7 @@ class DataProvider extends ModifierPoolDataProvider
      * @var array
      */
     protected $loadedData;
+    protected $_storeManager;
 
     /**
      * Constructor
@@ -46,11 +47,14 @@ class DataProvider extends ModifierPoolDataProvider
         $requestFieldName,
         CollectionFactory $blockCollectionFactory,
         DataPersistorInterface $dataPersistor,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         array $data = [],
         array $meta = [],
         PoolInterface $pool = null
     ) {
         $this->collection = $blockCollectionFactory->create();
+        $this->_storeManager = $storeManager;
+
         $this->dataPersistor = $dataPersistor;
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data, $pool);
     }
@@ -62,12 +66,27 @@ class DataProvider extends ModifierPoolDataProvider
      */
     public function getData()
     {
+        $mediaUrl = $this->_storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+
         if (isset($this->loadedData)) {
             return $this->loadedData;
         }
         $items = $this->collection->getItems();
         foreach ($items as $block) {
             $this->loadedData[$block->getId()] = $block->getData();
+            if (isset($block['image'])) {
+                $name = $block['image'];
+                unset($block['image']);
+                $data['image'][0] = [
+                    'name' => $name,
+                    'url' => $mediaUrl.'ecentura/feature/'.$name
+                ];
+
+                $fullData = $this->loadedData;
+                $this->loadedData[$block->getId()] = array_merge($fullData[$block->getId()], $data);
+
+
+            }
         }
 
         $data = $this->dataPersistor->get(Image::CACHE_IMAGE);
