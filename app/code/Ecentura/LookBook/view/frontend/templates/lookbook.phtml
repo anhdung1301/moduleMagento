@@ -25,13 +25,7 @@ $data = $block->getPostCollection();
             for (i=0; i<$(".pin").length; i++)
             {
                 n = i+1;
-                if ($(".pin").eq(i).hasClass('pin-down')) {
-                    tooltipDirection = 'tooltip-down';
-                } else {
-                    tooltipDirection = 'tooltip-up';
-                }
-                // append the tooltip
-                $("#image-map").append("<div style='left:"+$(".pin").eq(i).data('xpos')+"px;top:"+$(".pin").eq(i).data('ypos')+"px' class='" + tooltipDirection+"'> <span class='info'>" + n +"</span>\
+                $("#image-map").append("<div style='left:"+$(".pin").eq(i).data('xpos')+"px;top:"+$(".pin").eq(i).data('ypos')+"px' class='tooltip-up'> <span class='info'>" + n +"</span>\
                                             <div class='tooltip'>" + $(".pin").eq(i).html() + "</div>\
                                     </div>");
             }

@@ -18,7 +18,7 @@
 }
 .tooltip-down, .tooltip-up {
     position: absolute;
-    width: 25px;
+    width: 300px;
     height: 37px;
 }
 .tooltip-down .tooltip {
@@ -28,14 +28,14 @@
 
 .tooltip {
     display: none;
-    width: 200px;
+    width: 765px;
     cursor: help;
     text-shadow: 0 1px 0 #fff;
     position: absolute;
     top: 10px;
     left: 50%;
     z-index: 999;
-    margin-left: -115px;
+    margin-left: -394px;
     padding:15px;
     color: #222;
     border-radius: 5px;
@@ -63,11 +63,20 @@
 .tooltip-down .info{
     background: #ffff;
     border-radius: 50%;
-    font-size: 20px;
-    width: 30px;
-    height: 30px;
+    font-size: 14px;
+    width: 16px;
+    height: 16px;
     display: block;
-    line-height: 30px;
+    line-height: 19px;
     text-align: center;
-    border: 3px solid;
+    border: 11px solid;
 }
+
+/*responsive*/
+
+@media (max-width:1023px) {
+    #image-map{
+        display: none;
+    }
+}
+/*end responsive*/
