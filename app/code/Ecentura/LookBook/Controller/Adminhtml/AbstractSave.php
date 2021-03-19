@@ -50,23 +50,26 @@ abstract class AbstractSave extends Action
         try {
             $model = $this->getModel();
 
-            if (isset($data['image'][0]['name']) && isset($data['image'][0]['tmp_name'])) {
-                $data['image'] = $data['image'][0]['name'];
-            } elseif (isset($data['image'][0]['name']) && !isset($data['image'][0]['tmp_name'])) {
-                $data['image'] = $data['image'][0]['name'];
-            } else {
-                $data['image'] = '';
-            }
-            $this->imageUploader->moveFileFromTmp($data['image']);
 
             if ($id) {
                 $model->load($id);
             } elseif (!$id) {
                 unset($data[$idFieldName]);
             }
+            if (isset($data['image'][0]['name']) && isset($data['image'][0]['tmp_name'])) {
+                $data['image'] = $data['image'][0]['name'];
+                $this->imageUploader->moveFileFromTmp($data['image']);
+            } elseif (isset($data['image'][0]['name']) && !isset($data['image'][0]['tmp_name'])) {
+                $data['image'] = $data['image'][0]['name'];
+
+            } else {
+                $data['image'] = '';
+            }
+            if (isset($data['location'])) {
+                $data['location'] = is_array($data['location']) ? implode(',',$data['location']) :  $data['location']  ;
+            }
 
             $model->setData($data)->save();
-
             $this->messageManager->addSuccessMessage($this->getMessageSuccess());
             if ($this->getRequest()->getParam('back')) {
                 return $resultRedirect->setPath('*/*/edit', [$idFieldName => $model->getId(), 'duplicate' => '0']);

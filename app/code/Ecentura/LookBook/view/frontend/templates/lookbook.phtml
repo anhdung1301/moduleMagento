@@ -11,7 +11,7 @@ $data = $block->getPostCollection();
     <img src=" <?php echo $this->getViewFileUrl('Ecentura_LookBook::image/image.jpeg'); ?>" alt="Our Locations">
     <?php foreach( $data as $key => $value): ?>
     <div class="pin " data-xpos="<?=$value['xpos']  ?>" data-ypos="<?=$value['ypos']  ?>" >
-    <h2><?=$value['title']  ?></h2>
+    <h2><?=$value['name']  ?></h2>
     <p><?=$value['description']  ?></p>
     </div>
     <?php endforeach; ?>

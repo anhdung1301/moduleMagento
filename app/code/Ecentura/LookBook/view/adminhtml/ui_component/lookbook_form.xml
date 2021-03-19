@@ -89,7 +89,7 @@
                 <dataScope>ypos</dataScope>
             </settings>
         </field>
-        <field name="title" sortOrder="10" formElement="input">
+        <field name="name" sortOrder="10" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">page</item>
@@ -101,7 +101,7 @@
                 </validation>
                 <dataType>text</dataType>
                 <label translate="true">Title</label>
-                <dataScope>title</dataScope>
+                <dataScope>name</dataScope>
             </settings>
         </field>
         <field name="description">

@@ -96,7 +96,7 @@ class DataProvider extends ModifierPoolDataProvider
             $this->loadedData[$block->getId()] = $block->getData();
             $this->dataPersistor->clear(Image::CACHE_IMAGE);
         }
-
+//var_dump($this->loadedData);die();
         return $this->loadedData;
     }
 }

@@ -106,6 +106,7 @@
                 </imageUploader>
             </formElements>
         </field>
+
         <field name="is_active" sortOrder="50" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -133,4 +134,25 @@
             </formElements>
         </field>
     </fieldset>
+    <fieldset name="Location" sortOrder="10">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Location</label>
+        </settings>
+        <field name="location" formElement="multiselect">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Multiselect Example</label>
+                <dataScope>location</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Ecentura\LookBook\Model\Source\Location"/>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+    </fieldset>
+
 </form>
