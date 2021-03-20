@@ -18,7 +18,7 @@
     <settings>
         <buttons>
             <button name="save" class="Ecentura\LookBook\Block\Adminhtml\Image\Edit\SaveButton"/>
-<!--            <button name="delete" class="Ecentura\LookBook\Block\Adminhtml\Index\Edit\DeleteButton"/>-->
+            <button name="delete" class="Ecentura\LookBook\Block\Adminhtml\Image\Edit\DeleteButton"/>
             <button name="back" class="Ecentura\LookBook\Block\Adminhtml\Image\Edit\BackButton"/>
         </buttons>
         <namespace>image_form</namespace>

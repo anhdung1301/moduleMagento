@@ -21,14 +21,15 @@
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="id"/>
         </constraint>
+        <index referenceId="SUB_TITLE_META_KEYWORDS_META_DESCRIPTION_IDENTIFIER_CONTENT" indexType="fulltext">
+            <column name="name"/>
+        </index>
     </table>
-
-
     <table name="ecentura_lookbook_image" resource="default" engine="innodb" comment="Custom">
         <column xsi:type="int" name="image_id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
         <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
         <column xsi:type="varchar" name="image" nullable="true" length="255" comment="LookBook Image"/>
-        <column xsi:type="varchar" name="location" nullable="true" length="255" comment="custom_options_list"/>
+        <column xsi:type="varchar" name="location" nullable="true" length="255" comment="id location"/>
         <column xsi:type="int" name="is_active" padding="2" nullable="true" default="1" comment="Is Active"/>
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="true" default="CURRENT_TIMESTAMP"
                 comment="Post Created At"/>
@@ -37,17 +38,9 @@
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="image_id"/>
         </constraint>
-    </table>
-
-    <table name="eav_location_image" resource="default" engine="innodb" comment="EAV  Table">
-        <column xsi:type="int" name="image_id" padding="10" unsigned="true" nullable="false" comment="Image ID"/>
-        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
-        <constraint xsi:type="primary" referenceId="PRIMARY">
-            <column name="image_id"/>
-            <column name="id"/>
-        </constraint>
-        <constraint xsi:type="foreign" referenceId="EAV_location" table="eav_location_image" column="id" referenceTable="ecentura_lookbook_location" referenceColumn="id" onDelete="CASCADE"/>
-        <constraint xsi:type="foreign" referenceId="EAV_image" table="eav_location_image" column="image_id" referenceTable="ecentura_lookbook_image" referenceColumn="image_id" onDelete="CASCADE"/>
+        <index referenceId="IMAGE_SUB_TITLE_META_KEYWORDS_META_DESCRIPTION_IDENTIFIER_CONTENT" indexType="fulltext">
+            <column name="name"/>
+        </index>
     </table>
 
 

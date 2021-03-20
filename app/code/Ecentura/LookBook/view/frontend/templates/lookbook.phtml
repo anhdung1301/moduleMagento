@@ -4,16 +4,20 @@
  *
  * @var $block Ecentura\LookBook\Block\Index\LookBook;
  */
-$data = $block->getPostCollection();
+$data = $block->getImageLookBook();
+$dataLocation = $block->getLocationLookBook($data['location']);
 ?>
 
 <div id="image-map">
-    <img src=" <?php echo $this->getViewFileUrl('Ecentura_LookBook::image/image.jpeg'); ?>" alt="Our Locations">
-    <?php foreach( $data as $key => $value): ?>
-    <div class="pin " data-xpos="<?=$value['xpos']  ?>" data-ypos="<?=$value['ypos']  ?>" >
-    <h2><?=$value['name']  ?></h2>
-    <p><?=$value['description']  ?></p>
-    </div>
+    <img src=" <?= $block->getURlImage($data['image'])?>" alt="Our Locations">
+    <?php foreach( $dataLocation as $key => $values): ?>
+        <?php foreach( $values as$value ): ?>
+
+            <div class="pin " data-xpos="<?=$value['xpos']  ?>" data-ypos="<?=$value['ypos']  ?>" >
+            <h2><?=$value['name']  ?></h2>
+            <p><?=$value['description']  ?></p>
+            </div>
+        <?php endforeach; ?>
     <?php endforeach; ?>
 </div>
 
