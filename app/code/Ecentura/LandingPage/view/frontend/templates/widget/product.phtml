@@ -1,0 +1,40 @@
+<?php
+/**
+ * Copyright © 2019 Magenest. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Magenest_magento233_dev extension
+ * NOTICE OF LICENSE
+ *
+ * @category Magenest
+ * @package Magenest_magento233_dev
+ */
+/** @var $block Ecentura\LandingPage\Block\Widget\ShowProduct*/
+use Magento\Catalog\Block\Product\ReviewRendererInterface;
+use Magento\Framework\App\Action\Action;
+$product = $block->getProductInformation();
+$titleWidget = $block->getTitle();
+var_dump($titleWidget);die();
+
+$_helper = $block->getHelper();
+$pos = $block->getPositioned();
+$imageDisplayArea = 'category_page_list';
+$templateType = ReviewRendererInterface::FULL_VIEW;
+$viewMode = 'grid';
+$showDescription = true;
+$url_base = "12";
+$n = 1;
+?>
+
+
+
+    <div class="product data items"
+         data-mage-init='{"mage/tabs": {"openedState": "active", "animate": {"duration": 100}, "active": 0,"disabledState": "disabled"}}'>
+        <div class="heading-tabs">
+            <div class="item title" data-role="collapsible">
+                <a class="switch" data-toggle="trigger" href="#tab-1"><?= $titleWidget ?></a>
+            </div>
+        </div>
+
+
+    </div>

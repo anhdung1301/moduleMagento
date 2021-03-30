@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:codetheatres:Magento_Widget:etc/widget.xsd">
+    <widget class="Ecentura\LandingPage\Block\Widget\ShowProduct" id="show_product_slider_on_landing_page">
+        <label>Show Product Slider On Landing Page</label>
+        <description>Show Product Slider On Landing Page</description>
+        <parameters>
+            <parameter name="Title" xsi:type="text" required="false" visible="true" sort_order="40">
+                <label translate="true">Title </label>
+            </parameter>
+            <parameter name="product_id" xsi:type="text" required="false" visible="true" sort_order="40">
+                <label translate="true">Product ID </label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

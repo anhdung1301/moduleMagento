@@ -16,10 +16,16 @@
         <css src="https://use.fontawesome.com/releases/v5.7.1/css/all.css" src_type="url"/>
     </head>
     <body>
-        <referenceContainer name="content">
-            <referenceBlock name="category.products" remove = "true"/>
-            <block class="Magento\Framework\View\Element\Template" name="custom.header" template="Ecentura_LandingPage::landing.phtml"/>
+        <referenceContainer name="columns">
+            <referenceContainer name="content">
+                <block class="Magento\Framework\View\Element\Template" name="custom.header" template="Ecentura_LandingPage::slide.phtml"/>
+                <referenceBlock name="category.products" remove = "true"/>
+            </referenceContainer>
+            <container name="custom"  after="content">
+                <block class="Ecentura\LandingPage\Block\Landing\Custom" name="custom.header111" template="Ecentura_LandingPage::custom.phtml"/>
+            </container>
         </referenceContainer>
         <referenceBlock name="page.main.title" remove = "true"/>
+        <referenceBlock name="container-col-sub-category" remove = "true"/>
     </body>
 </page>

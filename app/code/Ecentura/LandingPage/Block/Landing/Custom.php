@@ -91,9 +91,7 @@ class Custom extends ListProduct
         return $collection;
     }
 
-    public function getTitleTab($title){
-        return $this->helperData->getTabPro($title);
-    }
+
     public function getProductTab(){
         return [
             'tab-1' => $this->getProductCollection($this->helperData->getTabPro('cat_tab1')),
