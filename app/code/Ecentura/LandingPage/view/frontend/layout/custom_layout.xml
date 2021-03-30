@@ -22,7 +22,7 @@
                 <referenceBlock name="category.products" remove = "true"/>
             </referenceContainer>
             <container name="custom"  after="content">
-                <block class="Ecentura\LandingPage\Block\Landing\Custom" name="custom.header111" template="Ecentura_LandingPage::custom.phtml"/>
+                <block class="Magento\Framework\View\Element\Template" name="custom.product" template="Ecentura_LandingPage::landing.phtml"/>
             </container>
         </referenceContainer>
         <referenceBlock name="page.main.title" remove = "true"/>

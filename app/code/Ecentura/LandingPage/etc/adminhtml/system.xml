@@ -1,44 +1,14 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <tab id="c_landing" translate="label" sortOrder="10">
+        <tab id="c_landing" translate="label" sortOrder="130">
             <label>Landing Page</label>
         </tab>
-        <section id="landing" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+        <section id="landing" translate="label" sortOrder="130" showInDefault="1" showInWebsite="0" showInStore="0">
             <class>separator-top</class>
             <label>Manager Landing Page</label>
             <tab>c_landing</tab>
             <resource>Ecentura_LandingPage::landing_config</resource>
-            <group id="list_product" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
-                <label>List Products</label>
-                <field id="title_tab1" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <label>Title Tab 1</label>
-                </field>
-                <field id="cat_tab1" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <label>Category ID </label>
-                </field>
-
-                <field id="title_tab2" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <label>Title Tab 2</label>
-                </field>
-                <field id="cat_tab2" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <label>Category ID </label>
-                </field>
-
-                <field id="title_tab3" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <label>Title Tab 3</label>
-                </field>
-                <field id="cat_tab3" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <label>Category ID </label>
-                </field>
-
-                <field id="title_tab4" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <label>Title Tab 4</label>
-                </field>
-                <field id="cat_tab4" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <label>Category ID </label>
-                </field>
-            </group>
             <group id="list_category" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
                 <label>List Category</label>
                 <field id="title_list1" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">

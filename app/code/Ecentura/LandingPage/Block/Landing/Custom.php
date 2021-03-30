@@ -24,15 +24,6 @@ class Custom extends ListProduct
      * @var Registry
      */
     protected $_registry;
-    /**
-     * Default limit related products
-     */
-    const LIMIT = '10';
-
-    /**
-     * @var CollectionFactory
-     */
-    protected $_productCollectionFactory;
 
     /**
      * @var Output
@@ -45,7 +36,6 @@ class Custom extends ListProduct
      * @param PostHelper $postDataHelper
      * @param Resolver $layerResolver
      * @param CategoryRepositoryInterface $categoryRepository
-     * @param CollectionFactory $productCollectionFactory
      * @param Output $output
      * @param Data $urlHelper
      * @param array $data
@@ -57,14 +47,12 @@ class Custom extends ListProduct
         Resolver $layerResolver,
         \Magento\Catalog\Model\CategoryFactory $categoryFactory,
         CategoryRepositoryInterface $categoryRepository,
-        CollectionFactory $productCollectionFactory,
         Output $output,
         Data $urlHelper,
         \Ecentura\LandingPage\Helper\Data $helperData,
         array $data = []
     ) {
         $this->_registry = $registry;
-        $this->_productCollectionFactory = $productCollectionFactory;
         $this->outputHelper = $output;
         $this->helperData = $helperData;
         $this->_categoryFactory = $categoryFactory;
@@ -79,27 +67,6 @@ class Custom extends ListProduct
         return $this->outputHelper;
     }
 
-    public function getProductCollection($categoryId)
-    {
-        $category = $this->_categoryFactory->create()->load($categoryId);
-        $collection = $this->_productCollectionFactory->create();
-        $collection->addAttributeToSelect('*');
-        $collection->addCategoryFilter($category);
-        $collection->addAttributeToFilter('visibility', \Magento\Catalog\Model\Product\Visibility::VISIBILITY_BOTH);
-        $collection->addAttributeToFilter('status',\Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
-        $collection->getSelect()->limit(Custom::LIMIT);
-        return $collection;
-    }
-
-
-    public function getProductTab(){
-        return [
-            'tab-1' => $this->getProductCollection($this->helperData->getTabPro('cat_tab1')),
-            "tab-2" => $this->getProductCollection($this->helperData->getTabPro('cat_tab2')),
-            'tab-3' => $this->getProductCollection($this->helperData->getTabPro('cat_tab3')),
-            'tab-4' => $this->getProductCollection($this->helperData->getTabPro('cat_tab4'))
-        ];
-    }
     public function getInforCat($ide){
         return $this->helperData->getListcategories($ide);
     }
@@ -130,45 +97,12 @@ class Custom extends ListProduct
                     'count_product'=> $this->getCategory($value)->getProductCount(),
                 ];
             }
-
             array_push($dataChils,$dataChil);
             return $dataChils;
         }
     }
     public function getListCat($id){
         return $this->getChildren($id);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getMode()
-    {
-        return 'grid';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getToolbarHtml()
-    {
-        return null;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getAdditionalHtml()
-    {
-        return null;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function _beforeToHtml()
-    {
-        return $this;
     }
 
 }
