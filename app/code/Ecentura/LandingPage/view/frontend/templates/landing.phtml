@@ -1,17 +1,15 @@
 <?php
-
-
 echo $this->getLayout()->createBlock(\Magento\Cms\Block\Block::class)->setBlockId('Landing-page-product')->toHtml(); ?>
 <script type="text/javascript" xml="space">// <![CDATA[
     require(['jquery', 'cpowlcarousel'], function ($) {
         jQuery(document).ready(function () {
             jQuery(".hbr-main .hbr-slider ").owlCarousel({
                 items: 4,
-                itemsDesktop: [1080, 4],
-                itemsDesktopSmall: [860, 3],
-                itemsTablet: [768, 3],
-                itemsTabletSmall: [639, 3],
-                itemsMobile: [479, 2],
+                itemsDesktop: [1430, 4],
+                itemsDesktopSmall: [990, 1],
+                itemsTablet: [768, 1],
+                itemsTabletSmall: [639, 1],
+                itemsMobile: [479, 1],
                 pagination: false,
                 navigationText: ['<div class="lft-btn"><i class="fa fa-angle-left"></i></div>', '<div class="rgt-btn"><i class="fa fa-angle-right"></div>'],
                 navigation: true,
@@ -19,7 +17,7 @@ echo $this->getLayout()->createBlock(\Magento\Cms\Block\Block::class)->setBlockI
         });
         $(".view-hometext-mobile").click(function () {
             $(".view-hometext-mobile").hide();
-            $(".content-below").show();
+            $(".container-home").css('display','block');
         });
 
     });

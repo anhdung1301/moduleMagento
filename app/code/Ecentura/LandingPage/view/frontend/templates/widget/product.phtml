@@ -9,9 +9,12 @@
  * @category Magenest
  * @package Magenest_magento233_dev
  */
-/** @var $block Ecentura\LandingPage\Block\Widget\ShowProduct*/
+
+/** @var $block Ecentura\LandingPage\Block\Widget\ShowProduct */
+
 use Magento\Catalog\Block\Product\ReviewRendererInterface;
 use Magento\Framework\App\Action\Action;
+
 $product = $block->getProductInformation();
 $titleWidget = $block->getTitle();
 
@@ -27,111 +30,118 @@ $n = 1;
 
 
 <div class="list-product">
-        <?php if (count($product) == 0) : ?>
-            <div class="message info empty">
-                <div><?= $block->escapeHtml(__('We can\'t find products matching the selection.')) ?></div>
+    <?php if (count($product) == 0) : ?>
+        <div class="message info empty">
+            <div><?= $block->escapeHtml(__('We can\'t find products matching the selection.')) ?></div>
+        </div>
+    <?php else : ?>
+        <div class="hbr-main pad-main">
+            <div class="block-title-main">
+                <div class="title-border"></div>
             </div>
-        <?php else : ?>
-            <div class="hbr-main pad-main">
-                <div class="block-title-main">
-                    <div class="title-border"></div>
-                </div>
-                <div class="hbr-main">
-                    <div class="hbr-content hbr-slider owl-carousel ">
-                        <?php foreach ($product as $_product) : ?>
+            <div class="hbr-main">
+                <div class="hbr-content hbr-slider owl-carousel ">
+                    <?php foreach ($product as $_product) : ?>
 
-                            <div class="hbr-inner">
-                                <div class=" hbr-inner item product product-item mp-blog-slider-item">
-                                    <div class="product-item-info" style="margin-left: 15px"
-                                         data-container="product-<?= /* @noEscape */
-                                         $viewMode ?>">
-                                        <?php if ($n == 11) $n = 1 ?>
-                                        <span class="round-number"><?= $n++ ?></span>
+                        <div class="hbr-inner">
+                            <div class=" hbr-inner item product product-item mp-blog-slider-item">
+                                <div class="product-item-info" style="margin-left: 15px"
+                                     data-container="product-<?= /* @noEscape */
+                                     $viewMode ?>">
+                                    <?php if ($n == 11) {
+                                         $n = 1;
+                                     } ?>
+                                    <span class="round-number"><?= $n++ ?></span>
+                                    <?php
+                                    $productImage = $block->getImage($_product, $imageDisplayArea);
+                                    if ($pos != null) {
+                                        $position = ' style="left:' . $productImage->getWidth() . 'px;'
+                                            . 'top:' . $productImage->getHeight() . 'px;"';
+                                    }
+                                    ?>
+                                    <?php // Product Image?>
+                                    <a href="<?= $block->escapeUrl($_product->getProductUrl()) ?>"
+                                       class="product photo product-item-photo"
+                                       tabindex="-1">
+                                        <?= $productImage->toHtml() ?>
+                                    </a>
+
+                                    <div class="product details product-item-details">
                                         <?php
-                                        $productImage = $block->getImage($_product, $imageDisplayArea);
-                                        if ($pos != null) {
-                                            $position = ' style="left:' . $productImage->getWidth() . 'px;'
-                                                . 'top:' . $productImage->getHeight() . 'px;"';
-                                        }
+                                        $_productNameStripped = $block->stripTags($_product->getName(), null, true);
                                         ?>
-                                        <?php // Product Image?>
-                                        <a href="<?= $block->escapeUrl($_product->getProductUrl()) ?>"
-                                           class="product photo product-item-photo"
-                                           tabindex="-1">
-                                            <?= $productImage->toHtml() ?>
-                                        </a>
-
-                                        <div class="product details product-item-details">
-                                            <?php
-                                            $_productNameStripped = $block->stripTags($_product->getName(), null, true);
-                                            ?>
-                                            <strong class="product name product-item-name">
-                                                <a class="product-item-link"
-                                                   href="<?= $block->escapeUrl($_product->getProductUrl()) ?>">
-                                                    <?= /* @noEscape */
-                                                    $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
-                                                </a>
-                                            </strong>
-                                            <?= /* @noEscape */
-                                            $block->getProductPrice($_product) ?>
-                                            <?= $block->getProductDetailsHtml($_product) ?>
-                                            <!---->
-                                            <div class="product-item-inner">
+                                        <strong class="product name product-item-name">
+                                            <a class="product-item-link"
+                                               href="<?= $block->escapeUrl($_product->getProductUrl()) ?>">
+                                                <?= /* @noEscape */
+                                                $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+                                            </a>
+                                        </strong>
+                                        <?= /* @noEscape */
+                                        $block->getProductPrice($_product) ?>
+                                        <?= $block->getProductDetailsHtml($_product) ?>
+                                        <!---->
+                                        <div class="product-item-inner">
+                                            <div
+                                                class="product actions product-item-actions"<?= strpos($pos, $viewMode . '-actions') ? $block->escapeHtmlAttr($position) : '' ?>>
                                                 <div
-                                                        class="product actions product-item-actions"<?= strpos($pos, $viewMode . '-actions') ? $block->escapeHtmlAttr($position) : '' ?>>
-                                                    <div
-                                                            class="actions-primary"<?= strpos($pos, $viewMode . '-primary') ? $block->escapeHtmlAttr($position) : '' ?>>
-                                                        <?php if ($_product->isSaleable()) : ?>
-                                                            <?php $postParams = $block->getAddToCartPostParams($_product); ?>
-                                                            <form data-role="tocart-form"
-                                                                  data-product-sku="<?= $block->escapeHtml($_product->getSku()) ?>"
-                                                                  action="<?= $block->escapeUrl($postParams['action']) ?>"
-                                                                  method="post">
-                                                                <input type="hidden"
-                                                                       name="product"
-                                                                       value="<?= /* @noEscape */
-                                                                       $postParams['data']['product'] ?>">
-                                                                <input type="hidden"
-                                                                       name="<?= /* @noEscape */
-                                                                       Action::PARAM_NAME_URL_ENCODED ?>"
-                                                                       value="<?= /* @noEscape */
-                                                                       $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
-                                                                <?= $block->getBlockHtml('formkey') ?>
+                                                    class="actions-primary"<?= strpos($pos, $viewMode . '-primary') ? $block->escapeHtmlAttr($position) : '' ?>>
+                                                    <?php if ($_product->isSaleable()) : ?>
+                                                        <?php $postParams = $block->getAddToCartPostParams($_product); ?>
+                                                        <form data-role="tocart-form"
+                                                              data-product-sku="<?= $block->escapeHtml($_product->getSku()) ?>"
+                                                              action="<?= $block->escapeUrl($postParams['action']) ?>"
+                                                              method="post">
+                                                            <input type="hidden"
+                                                                   name="product"
+                                                                   value="<?= /* @noEscape */
+                                                                   $postParams['data']['product'] ?>">
+                                                            <input type="hidden"
+                                                                   name="<?= /* @noEscape */
+                                                                   Action::PARAM_NAME_URL_ENCODED ?>"
+                                                                   value="<?= /* @noEscape */
+                                                                   $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
+                                                            <?= $block->getBlockHtml('formkey') ?>
 
-                                                            </form>
+                                                        </form>
+                                                    <?php else : ?>
+                                                        <?php if ($_product->isAvailable()) : ?>
+                                                            <div class="stock available">
+                                                                <span><?= $block->escapeHtml(__('In stock')) ?></span>
+                                                            </div>
                                                         <?php else : ?>
-                                                            <?php if ($_product->isAvailable()) : ?>
-                                                                <div class="stock available">
-                                                                    <span><?= $block->escapeHtml(__('In stock')) ?></span>
-                                                                </div>
-                                                            <?php else : ?>
-                                                                <div class="stock unavailable">
-                                                                    <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
-                                                                </div>
-                                                            <?php endif; ?>
+                                                            <div class="stock unavailable">
+                                                                <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+                                                            </div>
                                                         <?php endif; ?>
-                                                    </div>
+                                                    <?php endif; ?>
                                                 </div>
+                                            </div>
+                                            <a href="<?= $block->escapeUrl($_product->getProductUrl()) ?>"
+                                               class="product description"
+                                               title="<?= $_product->getName(); ?>"
+                                               tabindex="-1">
                                                 <?php if ($showDescription) : ?>
                                                     <div
-                                                            class="product description product-item-description">
+                                                        class="product description product-item-description">
                                                         <?= /* @noEscape */
                                                         $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
                                                     </div>
                                                 <?php endif; ?>
+                                            </a>
 
-                                            </div>
                                         </div>
                                     </div>
-
                                 </div>
-                            </div>
 
-                        <?php endforeach; ?>
-                    </div>
+                            </div>
+                        </div>
+
+                    <?php endforeach; ?>
                 </div>
             </div>
-        <?php endif; ?>
+        </div>
+    <?php endif; ?>
 </div>
 <script type="text/javascript" xml="space">// <![CDATA[
     require(['jquery', 'cpowlcarousel'], function ($) {
@@ -156,3 +166,14 @@ $n = 1;
     });
 
 </script>
+
+<div class="short-description">
+    <ul>
+        <li>Vanaf 50 stuks</li>
+        <li>Bedrukking in full color</li>
+        <li>Drukafmeting: 280 x 310 mm</li>
+    </ul>
+</div>
+<div class="short-bottom" style="position: absolute;bottom: 4px;" >
+    <a href="#" style="color: #666;" data-toggle="tooltip" data-placement="right" title="Geleverd binnen 8 werkdagen"><i class="fal fa-truck">&nbsp;</i><span>woensdag 7 april </span></a>
+</div>

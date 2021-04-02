@@ -1,57 +1,66 @@
-
-<?php foreach ($block->list() as $key => $value): ?>
-    <div class="ad_related_pro_below">
-        <div class="col-xs-12">
-            <div class="title"><?= $block->getInforCat($key) ?></div>
-        </div>
-        <div class="raleted_pro_general_below">
-            <div class="row">
-                <div class="theme-cat-group">
-                    <?php if ($block->getListCat($block->getInforCat($value)) && $block->getListCat($block->getInforCat($value))) : ?>
-                        <?php foreach ($block->getListCat($block->getInforCat($value)) as $item): ?>
-                            <?php foreach ($item as $cat): ?>
-                                <div class="col-sm-3">
-                                    <div class="raleted_pro_detailds">
-                                        <a href="<?= $cat['url'] ?>"
-                                           title="<?= $cat['name'] ?>" class="panel-body">
-                                            <div class="cat-img">
-                                                <?php if ($cat['image']) : ?>
-                                                    <img
-                                                            src="<?= $block->getUrl() . 'pub/media/catalog/category/' . $cat['image'] ?>"
-                                                            alt="<?= $cat['name'] ?>" width="117" height="90">
-                                                <?php endif; ?>
-                                            </div>
-                                            <div class="sub-info">
-                                                <div class="align-middle">
-                                                    <span class="name"><?= $cat['name'] ?></span>
-                                                    <span class="sub-caption">
+<div class="grey">
+    <div class="container">
+        <?php foreach ($block->list() as $key => $value): ?>
+            <div class="ad_related_pro_below">
+                <div class="col-xs-12">
+                    <div class="title"><?= $block->getInforCat($key) ?></div>
+                </div>
+                <div class="raleted_pro_general_below">
+                    <div class="row">
+                        <div class="theme-cat-group">
+                            <?php if ($block->getListCat($block->getInforCat($value)) && $block->getListCat($block->getInforCat($value))) : ?>
+                                <?php foreach ($block->getListCat($block->getInforCat($value)) as $item): ?>
+                                    <?php foreach ($item as $cat): ?>
+                                        <div class="col-sm-3">
+                                            <div class="raleted_pro_detailds">
+                                                <a href="<?= $cat['url'] ?>"
+                                                   title="<?= $cat['name'] ?>" class="panel-body">
+                                                    <div class="cat-img">
+                                                        <?php if ($cat['image']) : ?>
+                                                            <img
+                                                                src="<?= $block->getUrl() . 'pub/media/catalog/category/' . $cat['image'] ?>"
+                                                                alt="<?= $cat['name'] ?>" width="117" height="90">
+                                                        <?php endif; ?>
+                                                    </div>
+                                                    <div class="sub-info">
+                                                        <div class="align-middle">
+                                                            <span class="name"><?= $cat['name'] ?></span>
+                                                            <span class="sub-caption">
                                         <ul>
                                            <li><?= $cat['count_product']; ?> artikelen</li>
                                         </ul>
                                      </span>
-                                                </div>
+                                                        </div>
+                                                    </div>
+                                                    <i class="fa fa-angle-rights" aria-hidden="true"></i>
+                                                </a>
                                             </div>
-                                            <i class="fa fa-angle-rights" aria-hidden="true"></i>
-                                        </a>
-                                    </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <div class="message info empty">
+                                    <div><?= $block->escapeHtml(__('No find  matching the selection.')) ?></div>
                                 </div>
-                            <?php endforeach; ?>
-                        <?php endforeach; ?>
-                    <?php else : ?>
-                        <div class="message info empty">
-                            <div><?= $block->escapeHtml(__('No find  matching the selection.')) ?></div>
+                            <?php endif; ?>
                         </div>
-                    <?php endif; ?>
+                    </div>
                 </div>
             </div>
-        </div>
+        <?php endforeach; ?>
     </div>
-<?php endforeach; ?>
+</div>
+
 <script>
     require([
         'jquery',
         'tabs'], function ($) {
-        $(".product.data.items").tabs({"openedState": "active", "animate": {"duration": 0}, "active": 0,"disabledState": "disabled"});
+        $(".product.data.items").tabs({
+            "openedState": "active",
+            "animate": {"duration": 0},
+            "active": 0,
+            "disabledState": "disabled"
+        });
     });
 </script>
 

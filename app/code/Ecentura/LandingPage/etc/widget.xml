@@ -5,9 +5,6 @@
         <label>Show Product Slider On Landing Page</label>
         <description>Show Product Slider On Landing Page</description>
         <parameters>
-            <parameter name="Title" xsi:type="text" required="false" visible="true" sort_order="40">
-                <label translate="true">Title </label>
-            </parameter>
             <parameter name="product_id" xsi:type="text" required="false" visible="true" sort_order="40">
                 <label translate="true">Product ID </label>
             </parameter>
