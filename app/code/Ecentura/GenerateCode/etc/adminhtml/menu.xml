@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Ecentura_GenerateCode::generate" title="Generate Code" module="Ecentura_GenerateCode" sortOrder="200"
+             resource="Ecentura_GenerateCode::claer" parent="Magento_Backend::system_tools" action="generatecode/index/index" />
+    </menu>
+</config>

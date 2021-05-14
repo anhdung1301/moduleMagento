@@ -1,0 +1,30 @@
+<?php
+/**
+ * Product list template
+ *
+ * @var $block Ecentura\Theme\Block\Themes;
+ */
+?>
+<style>
+    header {
+        background-color: <?= '#' . $block->getCssHeader('backgrounds_header') ?> !important;
+        color: <?=  '#' . $block->getCssHeader('color_header') ?> !important;
+        font-size: <?=  $block->getCssHeader('font_size_header'); ?>;
+        font-family: <?=$block->getCssHeader('font_family_header'); ?>;
+    }
+
+    footer {
+        background-color: <?=  '#' . $block->getCssFooter('background_footer') ?> !important;
+        color: <?=  '#' . $block->getCssFooter('color_footer') ?> !important;
+        font-size: <?=  $block->getCssFooter('font_size_footer'); ?>;
+        font-family: <?=$block->getCssFooter('font_family_footer'); ?>;
+    }
+
+    .page-main {
+        background-color: <?=  '#' . $block->getCssContent('background') ?> !important;
+        color: <?=  '#' . $block->getCssContent('color') ?> !important;
+        font-size: <?=  $block->getCssContent('font_size'); ?>;
+        font-family: <?=$block->getCssContent('font_family'); ?>;
+    }
+    <?= $block->getCss();?>
+</style>

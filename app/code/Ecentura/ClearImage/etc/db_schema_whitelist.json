@@ -1,0 +1,13 @@
+{
+    "ecentura_history_clear_image": {
+        "column": {
+            "id": true,
+            "history": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

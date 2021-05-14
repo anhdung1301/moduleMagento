@@ -12,7 +12,13 @@
             <argument name="resourceModel" xsi:type="string">Ecentura\ClearImage\Model\ResourceModel\History</argument>
         </arguments>
     </virtualType>
-
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="exampleSayHello" xsi:type="object">Ecentura\ClearImage\Console\ClearImages</item>
+            </argument>
+        </arguments>
+    </type>
 
 
 </config>

@@ -1,0 +1,109 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+        <tab id="ecentura_theme" translate="label" sortOrder="400">
+            <label>Ecentura</label>
+        </tab>
+        <section id="theme" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <class>css_them</class>
+            <label>Theme</label>
+            <tab>ecentura_theme</tab>
+            <resource>Ecentura_Theme::config</resource>
+            <group id="content" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Design</label>
+                <field id="background" translate="label" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Background Color</label>
+                    <frontend_model>Ecentura\Theme\Block\Color</frontend_model>
+                </field>
+                <field id="color" translate="label" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Color</label>
+                    <frontend_model>Ecentura\Theme\Block\Color</frontend_model>
+                </field>
+                <field id="font_size" translate="label" type="text" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>font-size</label>
+                </field>
+                <field id="font_family" translate="label" type="text" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>font-family</label>
+                </field>
+            </group>
+            <group id="header" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Header</label>
+                <field id="backgrounds_header" translate="label" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Background Color</label>
+                    <frontend_model>Ecentura\Theme\Block\Color</frontend_model>
+                </field>
+                <field id="color_header" translate="label" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Color</label>
+                    <frontend_model>Ecentura\Theme\Block\Color</frontend_model>
+                </field>
+                <field id="font_size_header" translate="label" type="text" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>font-size</label>
+                </field>
+                <field id="font_family_header" translate="label" type="text" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>font-family</label>
+                </field>
+            </group>
+
+            <group id="footer" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Footer</label>
+                <field id="background_footer" translate="label" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Background Color</label>
+                    <frontend_model>Ecentura\Theme\Block\Color</frontend_model>
+                </field>
+                <field id="color_footer" translate="label" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Color</label>
+                    <frontend_model>Ecentura\Theme\Block\Color</frontend_model>
+                </field>
+                <field id="font_size_footer" translate="label" type="text" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>font-size</label>
+                </field>
+                <field id="font_family_footer" translate="label" type="text" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>font-family</label>
+                </field>
+            </group>
+            <group id="logo" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Logo</label>
+                <field id="image" translate="label comment" type="image" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Logo Image</label>
+                    <backend_model>Ecentura\Theme\Model\Config\Backend\Image</backend_model>
+                    <base_url type="media" scope_info="1">image</base_url>
+                </field>
+                <field id="with" translate="label" type="text" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>With</label>
+                </field>
+                <field id="height" translate="label" type="text" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Height</label>
+                </field>
+
+            </group>
+            <group id="custom_css" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>style</label>
+                <field id="css" translate="label" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Style Css</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

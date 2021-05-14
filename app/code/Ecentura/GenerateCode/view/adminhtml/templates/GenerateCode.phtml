@@ -1,0 +1,11 @@
+<form class="form contact" action=" <?php echo $block->getUrl('generatecode/index/download') ?>" id="contact-form" method="post"  style="margin-left: 400px;float: left ">
+<input name="form_key" type="hidden" value="<?php echo $block->getFormKey() ?>">
+
+    <div class="buttons-set" style="float: left">
+        <span style="font-size: 20px">Anzahl : </span> <input name="number" id="number"  value="10" class="input-text" type="text" aria-required="true">
+        <button type="submit" title="Absenden" class="action submit primary" style="margin-left: 300px">
+            <span>Absenden</span>
+            <input type="hidden" name="hideit" id="hideit" value="">
+        </button>
+    </div>
+</form>

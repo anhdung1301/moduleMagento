@@ -9,7 +9,7 @@
     <virtualType name="Ecentura\LookBook\Model\ResourceModel\LookBook\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">ecentura_lookbook_location</argument>
-            <argument name="resourceModel" xsi:type="string">Ecentura\LookBook\Model\ResourceModel\LookBook</argument>
+            <argument name="resourceModel" xsi:type="string">Ecentura\LookBook\Model\ResourceModel\Generate</argument>
         </arguments>
     </virtualType>
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">

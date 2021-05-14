@@ -15,7 +15,7 @@ class LookBook extends AbstractModel implements IdentityInterface
     const STATUS_ENABLED =1;
     protected function _construct()
     {
-        $this->_init('Ecentura\LookBook\Model\ResourceModel\LookBook');
+        $this->_init('Ecentura\LookBook\Model\ResourceModel\Generate');
     }
 
     /**

@@ -1,0 +1,23 @@
+<?php
+/**
+ * Product list template
+ *
+ * @var $block Ecentura\Theme\Block\Themes;
+ */
+$image=$block->getUrl('pub/media/image/').$block->LogoImage();
+$with =$block->getRatio('with');
+$height =$block->getRatio('height');
+?>
+
+
+<a
+    class="logo2"
+    href="<?= $block->escapeUrl($block->getUrl('')) ?>"
+    aria-label="store logo">
+    <img src="<?=$image ?>"
+         title="<?= $block->escapeHtmlAttr($block->getLogoAlt()) ?>"
+         alt="<?= $block->escapeHtmlAttr($block->getLogoAlt()) ?>"
+            <?= $with ? 'width="' . $block->escapeHtmlAttr($with) . '"' : '' ?>
+            <?= $height ? 'height="' . $block->escapeHtmlAttr($height) . '"' : '' ?>
+    />
+</a>

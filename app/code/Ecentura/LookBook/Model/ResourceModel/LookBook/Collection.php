@@ -14,7 +14,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      */
     protected function _construct()
     {
-        $this->_init('Ecentura\LookBook\Model\LookBook', 'Ecentura\LookBook\Model\ResourceModel\LookBook');
+        $this->_init('Ecentura\LookBook\Model\LookBook', 'Ecentura\LookBook\Model\ResourceModel\Generate');
     }
 
 }

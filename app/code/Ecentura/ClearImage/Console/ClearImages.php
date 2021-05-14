@@ -46,7 +46,7 @@ class ClearImages extends Command
     ) {
         $this->_productCollectionFactory = $productCollectionFactory;
         $this->_productFactory = $productFactory;
-        $this->_file = $file;
+        $this->_file = $file;   
         $this->fileSystem = $fileSystem;
         parent::__construct($name = null);
         $this->dir = $dir;
@@ -96,9 +96,11 @@ class ClearImages extends Command
         $collection = $this->_productCollectionFactory->create();
         foreach ($collection as $productID) {
             $product = $this->_productFactory->create()->load($productID->getID());
-            $productImages = $product->getMediaGalleryImages();
+            $productImages = $product->getData('media_gallery');
             foreach ($productImages as $value) {
-                $data[] = $value->getfile();
+                foreach ($value as $item){
+                    $data[] = $item['file'];
+                }
             }
         }
         return $data;
