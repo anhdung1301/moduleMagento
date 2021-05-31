@@ -1,0 +1,22 @@
+<!-- ko if: isSelect()-->
+<select data-bind="
+        value: value,
+        afterRender: initSearch,
+        options: getListProduct(),
+        optionsText: 'name',
+        optionsValue:'sku',
+        event: {
+            change: setProductName.bind(this,uid)
+        },
+        attr: {
+            name: inputName,
+            'aria-describedby': noticeId,
+            id: uid,
+            disabled: disabled
+    }">
+</select>
+<!-- /ko -->
+
+<!-- ko if: !isSelect()-->
+<span data-bind="text: getProductName()"></span>
+<!-- /ko -->

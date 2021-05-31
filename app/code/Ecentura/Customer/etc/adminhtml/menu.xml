@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+<!--        <add id="Ecentura_Customer::customer" title="Order" translate="title" module="Ecentura_Customer" sortOrder="110" parent="Ecentura_Core::all" resource="Ecentura_Customer::order"/>-->
+<!--        <add id="Ecentura_Customer::list" title="Order Check" translate="title" module="Ecentura_Customer" sortOrder="10" parent="Ecentura_Customer::customer" action="konishi_sales/order/index" resource="Ecentura_Customer::list"/>-->
+<!--        <add id="Ecentura_Customer::edit" title="Create Order" translate="title" module="Ecentura_Customer" sortOrder="20" parent="Ecentura_Customer::customer" action="konishi_sales/invoice/new/forward/order" resource="Ecentura_Customer::edit"/>-->
+        <add id="Ecentura_Customer::customer" title="Customer" translate="title" module="Ecentura_Customer" sortOrder="110" parent="Magento_Backend::system_tools" resource="Ecentura_Customer::order"/>
+        <add id="Ecentura_Customer::list" title="Customer Check" translate="title" module="Ecentura_Customer" sortOrder="10" parent="Ecentura_Customer::customer" action="ecentura_customer/index/index" resource="Ecentura_Customer::list"/>
+        <add id="Ecentura_Customer::edit" title="Create Customer" translate="title" module="Ecentura_Customer" sortOrder="20" parent="Ecentura_Customer::customer" action="ecentura_customer/index/edit" resource="Ecentura_Customer::edit"/>
+
+
+
+    </menu>
+</config>
