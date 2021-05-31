@@ -21,6 +21,7 @@ class Save extends \Ecentura\Customer\Controller\Adminhtml\AbstractSave
      * @var string
      */
     protected $idFieldName = 'id';
+    protected $customerRepository;
 
     /**
      * Save constructor.
@@ -29,10 +30,13 @@ class Save extends \Ecentura\Customer\Controller\Adminhtml\AbstractSave
      */
     public function __construct(
         Context $context,
-        OutletListFactory $lookBookFactory
+        OutletListFactory $lookBookFactory,
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
+
     ) {
         $this->modelFactory = $lookBookFactory;
-        parent::__construct($context);
+        $this->customerRepository = $customerRepository;
+        parent::__construct($context,$customerRepository);
     }
 
     /**

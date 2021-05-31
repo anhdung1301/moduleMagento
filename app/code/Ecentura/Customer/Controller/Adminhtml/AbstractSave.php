@@ -20,16 +20,20 @@ abstract class AbstractSave extends Action
      * @var null
      */
     protected $idFieldName = null;
-
+    protected $customerRepository;
     /**
      * Save constructor.
      * @param Context $context
      */
     public function __construct(
-        Context $context
+        Context $context,
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
+
     )
     {
+        $this->customerRepository = $customerRepository;
         parent::__construct($context);
+
     }
 
     /**
@@ -53,6 +57,9 @@ abstract class AbstractSave extends Action
             } elseif (!$id) {
                 unset($data[$idFieldName]);
             }
+
+            $customer = $this->customerRepository->getById($data['customer_id']);
+            $data['fullname'] = $customer->getFirstname(). " " . $customer->getLastname();
             $model->setData($data)->save();
             $this->messageManager->addSuccessMessage($this->getMessageSuccess());
             if ($this->getRequest()->getParam('back')) {

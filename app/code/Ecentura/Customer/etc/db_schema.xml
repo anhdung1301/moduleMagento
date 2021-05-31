@@ -11,7 +11,8 @@
         <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
         <column xsi:type="int" name="customer_id" nullable="true"  comment="Customer ID"/>
         <column xsi:type="int" name="partitions" nullable="true" comment="partitions"/>
-        <column xsi:type="varchar" name="note" nullable="true" length="255" comment="code"/>
+        <column xsi:type="varchar" name="note" nullable="true" length="255" comment="note"/>
+        <column xsi:type="varchar" name="fullname" nullable="true" length="255" comment="fullname"/>
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="true" default="CURRENT_TIMESTAMP"
                 comment="Post Created At"/>
         <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="true" default="CURRENT_TIMESTAMP"

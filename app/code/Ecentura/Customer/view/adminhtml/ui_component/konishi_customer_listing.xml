@@ -90,28 +90,13 @@
             </argument>
         </column>
 
-        <column name="firstname">
+        <column name="fullname">
             <settings>
-                <label translate="true">firstname</label>
+                <label translate="true">Full Name</label>
                 <filter>text</filter>
             </settings>
         </column>
 
-
-<!--        <column name="firstname">-->
-<!--            <argument name="data" xsi:type="array">-->
-<!--                <item name="config" xsi:type="array">-->
-<!--                    <item name="filter" xsi:type="string">text</item>-->
-<!--                    <item name="editor" xsi:type="array">-->
-<!--                        <item name="editorType" xsi:type="string">text</item>-->
-<!--                        <item name="validation" xsi:type="array">-->
-<!--                            <item name="required-entry" xsi:type="boolean">true</item>-->
-<!--                        </item>-->
-<!--                    </item>-->
-<!--                    <item name="label" xsi:type="string" translate="true">firstname</item>-->
-<!--                </item>-->
-<!--            </argument>-->
-<!--        </column>-->
         <column name="partitions" component="Magento_Ui/js/grid/columns/select">
             <settings>
                 <options class="Ecentura\Customer\Model\Partitions\Source\Partitions"/>
