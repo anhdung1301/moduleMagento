@@ -29,29 +29,4 @@ class Customer extends \Magento\Config\Block\System\Config\Form\Field {
     public function getCustomerCollection(){
         return $this->customer->getCollection();
     }
-
-    public function canShowCustomField(){
-        if($this->registry->registry('current_'.$this->getCurrentType())){
-            return true;
-        }
-        return false;
-    }
-    public function getIsSendEmail(){
-        $invoice =  $this->registry->registry('current_'.$this->getCurrentType());
-        if($invoice){
-            return $invoice->getEmail() == 1;
-        }
-        return false;
-    }
-    public function getCurrentType(){
-//        $type = $this->getRequest()->getParam('type');
-//        return $type ? $type : 'invoice';
-        return 'customer';
-    }
-    public function getCurrentForward(){
-        return $this->getRequest()->getParam('forward');
-    }
-    public function getCurrentEntity(){
-        return $this->registry->registry('current_'.$this->getCurrentType());
-    }
 }

@@ -47,18 +47,9 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper {
     public function canCreateInvoice(){
         $return = new \Magento\Framework\DataObject();
         try{
-//            $type = 'invoice';
-//            $custom = $this->request->getParam('type');
-//            if($custom == 'order'){
-//                $type = $custom;
-//            }
-
             $customerId = $this->request->getParam('customer');
-
             $registry = $this->coreRegistry->registry('current_customer');
-//            if($registry instanceof \Ecentura\Sales\Model\Invoice || $registry instanceof \Ecentura\Sales\Model\Order){
-//                $customerId = $registry->getCustomerId();
-//            }
+
             if(!$customerId){
                 $return->setData('customer',false);
                 return $return;

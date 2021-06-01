@@ -52,7 +52,7 @@
         <field name="partitions" formElement="select">
             <settings>
                 <dataType>text</dataType>
-                <label translate="true">Select Example</label>
+                <label translate="true">Partitions</label>
                 <dataScope>partitions</dataScope>
             </settings>
             <formElements>

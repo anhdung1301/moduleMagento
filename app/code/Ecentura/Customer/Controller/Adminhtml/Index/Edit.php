@@ -1,8 +1,4 @@
 <?php
-/**
- * Copyright 2016 ecentura. All rights reserved.
- * See LICENSE.txt for license details.
- */
 namespace Ecentura\Customer\Controller\Adminhtml\Index;
 
 use Magento\Framework\View\Result\PageFactory;
@@ -70,7 +66,7 @@ class Edit extends \Magento\Backend\App\Action {
         }
         $resultPage = $this->resultPageFactory->create();
         if($model->getId()){
-            $resultPage->getConfig()->getTitle()->prepend(__('Customer number: '. $customer->getFirstname(). ' '. $customer->getLastname() ));
+            $resultPage->getConfig()->getTitle()->prepend(__('Customer : '. $customer->getFirstname(). ' '. $customer->getLastname() ));
         }
         else{
             $resultPage->getConfig()->getTitle()->prepend(__('New Customer'));

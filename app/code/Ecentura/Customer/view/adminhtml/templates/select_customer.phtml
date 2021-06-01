@@ -617,12 +617,15 @@
     .admin__fieldset-wrapper-content .admin__fieldset{
         padding-bottom:0 !important;
     }
-    <?php
-        if(!$block->canShowCustomField()){ ?>
-    div[data-index=reminder_date],div[data-index=reminder_date] ~ div:not(:last-of-type) {
+
+    div[data-index=partitions],
+    div[data-index=note]
+    {
         display: none;
     }
-    <?php }if($block->getCurrentType() != 'invoice'){ ?>
+    <?php
+
+        if($block->getCurrentType() != 'invoice'){ ?>
     div[data-index=payment]{
         display: none;
     }
@@ -671,39 +674,26 @@ if(!$check->getCustomer() || $check->getNotice()): ?>
                 width: "100%",
                 placeholder: "Kunde auswählen"
             });
-            console.log(123123);
+
             $('#choose-customer').click(function () {
                 var customer = $('#select_customer').val();
 
                 if(customer){
+                    window.location = '<?php echo $block->getUrl('ecentura_customer/index/edit',array('customer'=>'-1','type'=>'customer')) ?>'.replace('-1',customer);
 
-                    <?php if($block->getCurrentForward()): ?>
-                    window.location = '<?php echo $block->getUrl('ecentura_customer/index/edit',array('customer'=>'-1','type'=>'invoice','forward'=>'order')) ?>'.replace('-1',customer);
-                    <?php else: ?>
-                    window.location = '<?php echo $block->getUrl('ecentura_customer/index/edit',array('customer'=>'-1','type'=>$block->getCurrentType())) ?>'.replace('-1',customer);
-                    <?php endif; ?>
                 }
             });
         });
     </script>
 <?php else: ?>
-    <?php
-    $showCustomerField = $block->canShowCustomField();
-    if($showCustomerField){
-        $entity = $block->getCurrentEntity();
-        $raw = array(
-            'paymentmethod' => '',
-            'footertext'    => ''
-        );
-        try {
-            $raw = $helper->unserialize($entity->getRawData());
-        }
-        catch(\Exception $e){}
+
+<style>
+    div[data-index=partitions],
+    div[data-index=note]
+    {
+        display: block;
     }
-    ?>
-    <?php if($block->getCurrentForward()): ?>
-        <input type="hidden" name="do_not_invoice" data-form-part="konishi_customer_form" value="1">
-    <?php endif; ?>
+</style>
     <input type="hidden" name="type" value="<?php echo $block->getCurrentType(); ?>" data-form-part="konishi_customer_form">
     <div class="admin__fieldset" style="padding:0;margin-bottom: 30px;">
         <div class="admin__field" style="padding-bottom:0 !important;">
@@ -711,7 +701,7 @@ if(!$check->getCustomer() || $check->getNotice()): ?>
             <input type="hidden" name="customer_email" data-form-part="konishi_customer_form" value="<?php echo $check->getCustomer()->getEmail(); ?>">
             <label for="" class="admin__field-label"></label>
             <div class="admin__field-control">
-                <h2><strong>Customer Information</strong> <?php if($block->canShowCustomField()): ?> <?php if($block->getIsSendEmail()):?> (Email has been send) <?php else: ?> (Email was not send) <?php endif;endif; ?></h2>
+                <h2><strong>Customer Information</strong></h2>
                 <table>
                     <tr>
                         <th style="text-align: left;vertical-align: top">Name:</th>
@@ -731,28 +721,9 @@ if(!$check->getCustomer() || $check->getNotice()): ?>
                             <textarea id="" cols="30" rows="10" style="display: none" name="billing_address" data-form-part="konishi_customer_form"><?php echo $check->getAddress(); ?></textarea>
                         </td>
                     </tr>
-                    <?php if($showCustomerField): ?>
-                        <tr>
-                            <th style="text-align: left;vertical-align: top">Zahlungsart</th>
-                            <td style="padding-left: 40px;"><?php echo $raw['paymentmethod'] ?></td>
-                        </tr>
-                        <tr>
-                            <th style="text-align: left;vertical-align: top">Betreff</th>
-                            <td style="padding-left: 40px;"><?php echo $entity->getAuctionName() ?></td>
-                        </tr>
-                        <tr>
-                            <th style="text-align: left;vertical-align: top">Fußzeile</th>
-                            <td style="padding-left: 40px;"><?php echo $raw['footertext'] ?></td>
-                        </tr>
-                    <?php endif; ?>
+
                 </table>
             </div>
-            <?php if($showCustomerField): ?>
-                <input type="hidden" name="edit" data-form-part="konishi_customer_form" value="1"/>
-                <?php if($block->getIsSendEmail()):?>
-                    <input type="hidden" name="email" data-form-part="konishi_customer_form" value="1"/>
-                <?php endif; ?>
-            <?php endif; ?>
         </div>
     </div>
 <?php endif; ?>

@@ -1,8 +1,5 @@
 <?php
-/**
- * Copyright 2016 ecentura. All rights reserved.
- * See LICENSE.txt for license details.
- */
+
 namespace Ecentura\Customer\Controller\Adminhtml\Index;
 
 use Magento\Framework\View\Result\PageFactory;
